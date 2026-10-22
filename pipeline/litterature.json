@@ -1,0 +1,117 @@
+{
+  "avertissement": "Résumés rédigés pour l'agent à partir des articles cités. Ils servent de point de départ : vérifiez-les en lisant les textes originaux avant de vous en servir ailleurs.",
+  "articles": [
+    {
+      "id": "kilian2009",
+      "citation": "Kilian, 2009",
+      "reference": "Kilian, L. (2009). Not All Oil Price Shocks Are Alike: Disentangling Demand and Supply Shocks in the Crude Oil Market. American Economic Review, 99(3), 1053-1069.",
+      "themes": ["prix", "offre", "demande", "precaution", "choc", "geopolitique", "interpretation"],
+      "resume": "Sépare les variations du prix réel du pétrole en trois chocs : l'offre physique de brut, la demande mondiale liée à l'activité économique, et la demande propre au pétrole, notamment la demande de précaution qui reflète les craintes sur l'offre future. Les hausses de prix n'ont pas les mêmes causes ni les mêmes effets selon leur origine. Les chocs de demande de précaution font bondir le prix immédiatement, alors que les perturbations de l'offre physique ont eu historiquement un effet plus modeste et plus passager sur le prix réel.",
+      "usage": "Avant de lire une baisse des passages comme un choc d'offre, se demander s'il s'agit d'une perte réelle de barils, d'une crainte (précaution) ou d'un changement de la demande."
+    },
+    {
+      "id": "kilian_park2009",
+      "citation": "Kilian et Park, 2009",
+      "reference": "Kilian, L. et Park, C. (2009). The Impact of Oil Price Shocks on the U.S. Stock Market. International Economic Review, 50(4), 1267-1287.",
+      "themes": ["actions", "bourse", "marches", "precaution", "demande", "choc"],
+      "resume": "La réaction de la Bourse américaine dépend de l'origine du choc pétrolier. Une hausse du prix due à des craintes sur l'offre future fait baisser les actions ; une hausse portée par une demande mondiale vigoureuse s'accompagne d'abord d'une hausse des actions ; les chocs d'offre pèsent moins. Ensemble, les chocs d'offre et de demande du marché pétrolier expliquent environ 22 % de la variation de long terme des rendements réels des actions américaines.",
+      "usage": "Relier un signal sur les flux pétroliers aux marchés d'actions en précisant quel type de choc il traduit."
+    },
+    {
+      "id": "hamilton1983",
+      "citation": "Hamilton, 1983",
+      "reference": "Hamilton, J. D. (1983). Oil and the Macroeconomy since World War II. Journal of Political Economy, 91(2), 228-248.",
+      "themes": ["recession", "macro", "croissance", "prix", "choc"],
+      "resume": "Montre que toutes les récessions américaines d'après-guerre sauf une ont été précédées d'une forte hausse du prix du pétrole, et que cette relation statistique résiste à de nombreux contrôles sur la période étudiée.",
+      "usage": "Rappeler le canal historique entre flambée pétrolière et ralentissement économique, sans en faire une prévision mécanique."
+    },
+    {
+      "id": "hamilton2009",
+      "citation": "Hamilton, 2009",
+      "reference": "Hamilton, J. D. (2009). Causes and Consequences of the Oil Shock of 2007-08. Brookings Papers on Economic Activity, printemps 2009.",
+      "themes": ["demande", "recession", "consommation", "prix"],
+      "resume": "Attribue la flambée de 2007-2008 surtout à une demande mondiale forte, notamment chinoise, face à une production qui stagnait. Estime que ce choc a contribué à la récession américaine, en particulier par la baisse de la consommation et les difficultés du secteur automobile.",
+      "usage": "Illustrer qu'une hausse du pétrole tirée par la demande peut quand même peser sur l'activité."
+    },
+    {
+      "id": "baumeister_kilian2016",
+      "citation": "Baumeister et Kilian, 2016",
+      "reference": "Baumeister, C. et Kilian, L. (2016). Forty Years of Oil Price Fluctuations: Why the Price of Oil May Still Surprise Us. Journal of Economic Perspectives, 30(1), 139-160.",
+      "themes": ["prix", "prevision", "incertitude", "histoire", "interpretation"],
+      "resume": "Passe en revue quarante ans de variations du prix du pétrole. Chaque épisode a combiné différemment offre, demande et anticipations, si bien qu'aucun ne se répète à l'identique et que le prix peut encore surprendre les prévisionnistes.",
+      "usage": "Justifier la prudence : présenter des scénarios plutôt qu'une prévision de prix."
+    },
+    {
+      "id": "kanzig2021",
+      "citation": "Känzig, 2021",
+      "reference": "Känzig, D. R. (2021). The Macroeconomic Effects of Oil Supply News: Evidence from OPEC Announcements. American Economic Review, 111(4), 1092-1125.",
+      "themes": ["offre", "opep", "inflation", "anticipations", "nouvelles", "macro"],
+      "resume": "Isole les nouvelles sur l'offre future de pétrole grâce aux mouvements des contrats à terme autour des annonces de l'OPEP. Une nouvelle qui annonce moins d'offre fait monter le prix tout de suite, réduit la production industrielle, augmente l'inflation et les anticipations d'inflation, avec des effets significatifs et durables.",
+      "usage": "Montrer qu'une information sur l'offre future agit sur l'économie avant même que les barils manquent."
+    },
+    {
+      "id": "caldara_iacoviello2022",
+      "citation": "Caldara et Iacoviello, 2022",
+      "reference": "Caldara, D. et Iacoviello, M. (2022). Measuring Geopolitical Risk. American Economic Review, 112(4), 1194-1225.",
+      "themes": ["geopolitique", "risque", "investissement", "conflit", "marches"],
+      "resume": "Construit un indice de risque géopolitique à partir de la fréquence des articles de presse consacrés aux tensions et aux conflits. Une hausse de cet indice précède une baisse de l'investissement et de l'emploi et rend plus probables les scénarios économiques défavorables. L'indice est publié gratuitement.",
+      "usage": "Traiter une perturbation dans un détroit comme un choc de risque géopolitique qui touche l'ensemble des marchés, pas seulement le pétrole."
+    },
+    {
+      "id": "coibion_gorodnichenko2015",
+      "citation": "Coibion et Gorodnichenko, 2015",
+      "reference": "Coibion, O. et Gorodnichenko, Y. (2015). Is the Phillips Curve Alive and Well after All? Inflation Expectations and the Missing Disinflation. American Economic Journal: Macroeconomics, 7(1), 197-232.",
+      "themes": ["inflation", "anticipations", "banques centrales", "taux", "carburant"],
+      "resume": "Les anticipations d'inflation des ménages suivent de près le prix de l'essence. La hausse du pétrole entre 2009 et 2011 a relevé ces anticipations, ce qui aide à comprendre pourquoi l'inflation a moins reculé qu'attendu après la crise.",
+      "usage": "Décrire le canal pétrole, puis anticipations d'inflation, puis réaction des banques centrales et des taux."
+    },
+    {
+      "id": "carriere_swallow2023",
+      "citation": "Carrière-Swallow et al., 2023",
+      "reference": "Carrière-Swallow, Y., Deb, P., Furceri, D., Jiménez, D. et Ostry, J. D. (2023). Shipping Costs and Inflation. Journal of International Money and Finance, 130, 102771.",
+      "themes": ["fret", "transport", "inflation", "detour", "cout"],
+      "resume": "Étudie l'effet des coûts du transport maritime sur l'inflation. Quand le coût mondial du fret double, l'inflation augmente d'environ 0,7 point de pourcentage, avec un effet qui s'étale sur environ un an et qui est plus marqué dans les pays qui importent beaucoup.",
+      "usage": "Relier un contournement (par exemple par le cap de Bonne-Espérance) à la hausse du coût du fret, puis à l'inflation."
+    },
+    {
+      "id": "adland2017",
+      "citation": "Adland, Jia et Strandenes, 2017",
+      "reference": "Adland, R., Jia, H. et Strandenes, S. P. (2017). Are AIS-based trade volume estimates reliable? The case of crude oil exports. Maritime Policy & Management, 44(5), 657-665.",
+      "themes": ["ais", "donnees", "volumes", "exportations", "fiabilite", "limites"],
+      "resume": "Compare les exportations de brut estimées à partir des signaux AIS aux statistiques douanières officielles. Les deux concordent bien en agrégé, mais des écarts importants apparaissent selon les pays et les périodes, à cause des oléoducs et des transbordements.",
+      "usage": "Rappeler les limites des données AIS : bonnes pour les tendances agrégées, fragiles pays par pays."
+    },
+    {
+      "id": "arslanalp2019",
+      "citation": "Arslanalp, Marini et Tumbarello, 2019",
+      "reference": "Arslanalp, S., Marini, M. et Tumbarello, P. (2019). Big Data on Vessel Traffic: Nowcasting Trade Flows in Real Time. IMF Working Paper 19/275.",
+      "themes": ["ais", "commerce", "temps reel", "nowcasting", "donnees"],
+      "resume": "Montre, avec Malte comme cas d'étude, que les escales relevées par l'AIS permettent de construire des indicateurs du commerce maritime en quasi temps réel, à condition de bien filtrer les données. L'approche pourrait être étendue en indicateur mondial de l'activité commerciale.",
+      "usage": "Justifier l'usage des passages et escales AIS comme indicateur avancé de l'activité."
+    },
+    {
+      "id": "cerdeiro2020",
+      "citation": "Cerdeiro et al., 2020",
+      "reference": "Cerdeiro, D. A., Komaromi, A., Liu, Y. et Saeed, M. (2020). World Seaborne Trade in Real Time: A Proof of Concept for Building AIS-based Nowcasts from Scratch. IMF Working Paper 20/57.",
+      "themes": ["ais", "commerce", "nowcasting", "temps reel", "donnees"],
+      "resume": "Construit des indicateurs du commerce maritime mondial directement à partir des signaux AIS bruts, avec des algorithmes qui repèrent les ports et estiment les volumes. Ces indicateurs ont une valeur prédictive, notamment parce que le signal AIS précède parfois l'enregistrement officiel des échanges.",
+      "usage": "Expliquer pourquoi un signal AIS peut annoncer une évolution avant les statistiques officielles."
+    },
+    {
+      "id": "fmi2025",
+      "citation": "FMI, 2025",
+      "reference": "Fonds monétaire international (2025). Nowcasting Global Trade from Space. IMF Working Paper 2025/093.",
+      "themes": ["portwatch", "commerce", "nowcasting", "detroits", "donnees"],
+      "resume": "Présente un modèle de prévision immédiate du commerce maritime mondial fondé sur les données de mouvements de navires de PortWatch. Le transport maritime représente environ 80 % du commerce mondial de marchandises en volume.",
+      "usage": "Présenter PortWatch comme la source de référence des passages dans les détroits."
+    },
+    {
+      "id": "eia_chokepoints",
+      "citation": "EIA, World Oil Transit Chokepoints",
+      "reference": "U.S. Energy Information Administration. World Oil Transit Chokepoints (analyse mise à jour régulièrement).",
+      "themes": ["detroits", "ormuz", "suez", "bab el-mandeb", "offre", "geopolitique"],
+      "resume": "Ormuz est le passage pétrolier le plus important au monde : environ un cinquième de la consommation mondiale de pétrole y transite, et les oléoducs de contournement saoudiens et émiriens ne peuvent en reprendre qu'une partie. Bab el-Mandeb et le canal de Suez relient le Golfe à l'Europe ; s'ils sont évités, les navires doivent contourner l'Afrique par le cap de Bonne-Espérance, un trajet plus long et plus coûteux.",
+      "usage": "Donner l'ordre de grandeur de l'enjeu de chaque détroit."
+    }
+  ]
+}
