@@ -129,7 +129,7 @@ Après la rédaction, `controler()` vérifie les cinq titres et repère les cita
 |---|---|---|
 | Durée d'écoute AIS | `AIS_MINUTES` dans `pipeline/config.py` | 8 minutes par défaut |
 | Zones du tableau | `ZONES` dans `pipeline/config.py` | rectangles latitude/longitude |
-| Modèle Gemini | variable de dépôt `GEMINI_MODEL` (**Settings → Variables**) | par défaut `gemini-flash-latest` |
+| Modèle Gemini | variable de dépôt `GEMINI_MODEL` (**Settings → Variables**) | par défaut `gemini-flash-latest`, puis `gemini-flash-lite-latest` en secours |
 | Fréquence de l'analyse | `ANALYSE_TOUTES_LES_HEURES` | 24 heures par défaut |
 | Articles | `pipeline/litterature.json` | ajoute un article avec ses thèmes |
 

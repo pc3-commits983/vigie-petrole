@@ -25,7 +25,8 @@ from .util import ecrire_json, iso, maintenant, masquer
 log = logging.getLogger(__name__)
 
 URL_GEMINI = "https://generativelanguage.googleapis.com/v1beta"
-MODELES_PAR_DEFAUT = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest"]
+# gemini-2.5-flash n'est plus ouvert aux nouveaux comptes (constaté le 22/10/2026)
+MODELES_PAR_DEFAUT = ["gemini-flash-latest", "gemini-flash-lite-latest"]
 # Erreurs passagères (quota, surcharge) : on réessaie, puis on passe au modèle suivant
 STATUTS_PASSAGERS = {429, 500, 502, 503, 504}
 ATTENTES_SECONDES = (15, 45)
@@ -313,6 +314,7 @@ def produire_analyse(data_dir: Path, cle: str | None = None, modeles: list[str] 
     cle = (cle if cle is not None else os.environ.get("GEMINI_API_KEY", "")).strip()
     modeles = modeles or ([os.environ["GEMINI_MODEL"]] if os.environ.get("GEMINI_MODEL") else MODELES_PAR_DEFAUT)
     texte, mode, modele_utilise, erreur = None, "regles", None, None
+    incidents: list[str] = []
 
     if cle:
         for modele in modeles:
@@ -322,6 +324,7 @@ def produire_analyse(data_dir: Path, cle: str | None = None, modeles: list[str] 
                 break
             except ErreurAgent as exc:
                 erreur = str(exc)
+                incidents.append(masquer(erreur)[:400])
                 log.warning("Agent Gemini (%s) en échec : %s", modele, exc)
                 outils.appels.clear()
                 if not exc.essayer_un_autre_modele:  # clé refusée ou requête invalide
@@ -340,7 +343,8 @@ def produire_analyse(data_dir: Path, cle: str | None = None, modeles: list[str] 
         "controle": controle,
         "outils_appeles": [a["outil"] for a in outils.appels],
         "dates_des_donnees": dates_des_donnees(outils),
-        "erreur_ia": masquer(erreur) if erreur else None,
+        "erreur_ia": masquer(erreur) if erreur and mode == "regles" else None,
+        "incidents_ia": incidents,
     }
     ecrire_json(data_dir / config.FICHIERS["analyse"], analyse)
     return analyse
