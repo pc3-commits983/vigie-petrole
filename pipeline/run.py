@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 from . import agent, collect_ais, config, markets, portwatch, state
-from .util import ecrire_json, iso, maintenant, masquer
+from .util import ecrire_json, iso, lire_json, maintenant, masquer
 
 log = logging.getLogger("vigie")
 
@@ -43,6 +43,18 @@ def etape(etat: dict, nom: str, fonction, *args, **kwargs):
         log.exception("Étape %s en échec", nom)
         etat["etapes"][nom] = {"ok": False, "erreur": masquer(f"{type(exc).__name__} : {exc}")}
         return None
+
+
+def analyse_a_refaire(data_dir: Path, forcer: bool, cle_gemini: str) -> bool:
+    """Vrai si l'analyse est trop ancienne, demandée, ou si la dernière a dû se passer de Gemini.
+
+    Dans ce dernier cas (surcharge passagère, par exemple), on retente à chaque passage horaire
+    au lieu d'attendre 24 heures avec un rapport par règles.
+    """
+    if forcer or agent.analyse_perimee(data_dir, config.ANALYSE_TOUTES_LES_HEURES):
+        return True
+    derniere = lire_json(data_dir / config.FICHIERS["analyse"], {}) or {}
+    return bool(cle_gemini) and derniere.get("mode") == "regles"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -78,7 +90,7 @@ def main(argv: list[str] | None = None) -> int:
             etape(etat, "ais", collect_ais.collecter, data_dir, cle_ais)
 
         forcer = args.forcer_analyse or os.environ.get("FORCER_ANALYSE", "").lower() == "true"
-        if forcer or agent.analyse_perimee(data_dir, config.ANALYSE_TOUTES_LES_HEURES):
+        if analyse_a_refaire(data_dir, forcer, os.environ.get("GEMINI_API_KEY", "").strip()):
             etape(etat, "portwatch", portwatch.actualiser, data_dir)
             etape(etat, "marches", markets.actualiser, data_dir)
             resultat = etape(etat, "analyse", agent.produire_analyse, data_dir)

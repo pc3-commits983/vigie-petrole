@@ -5,6 +5,13 @@ name: Vigie pétrole
 on:
   schedule:
     - cron: "17 * * * *"
+  # Republie aussi le site dès que le code de l'application change
+  push:
+    branches: [main]
+    paths:
+      - "pipeline/**"
+      - "site/**"
+      - ".github/workflows/vigie.yml"
   workflow_dispatch:
     inputs:
       analyse:

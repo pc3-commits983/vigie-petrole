@@ -142,7 +142,7 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-37 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), contrôle des citations, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
+38 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), contrôle des citations, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
 
 ## Structure
 

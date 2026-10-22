@@ -30,6 +30,21 @@ class TestConstructionDuSite(unittest.TestCase):
             self.assertRegex(src, r"/\d+\.\d+\.\d+/")
 
 
+class TestQuandRefaireLAnalyse(unittest.TestCase):
+    def test_retente_gemini_apres_un_rapport_par_regles(self):
+        from pipeline.util import ecrire_json, iso, maintenant
+
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            self.assertTrue(run.analyse_a_refaire(data, False, ""))  # aucune analyse encore
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "regles"})
+            self.assertTrue(run.analyse_a_refaire(data, False, "cle"))
+            self.assertFalse(run.analyse_a_refaire(data, False, ""))
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "ia"})
+            self.assertFalse(run.analyse_a_refaire(data, False, "cle"))
+            self.assertTrue(run.analyse_a_refaire(data, True, "cle"))
+
+
 class TestSecrets(unittest.TestCase):
     def test_les_cles_ne_finissent_pas_dans_les_fichiers_publies(self):
         import os
