@@ -69,6 +69,7 @@ class Collecteur:
         self.erreur: str | None = None
         self.compteurs = {"messages": 0, "positions": 0, "statiques": 0, "ignores": 0}
         self.vus_statiques: set[str] = set()  # navires distincts dont on a reçu le message statique
+        self.confirmation: dict | None = None  # accusé d'abonnement envoyé par aisstream
 
     def traiter(self, brut) -> None:
         self.compteurs["messages"] += 1
@@ -85,6 +86,12 @@ class Collecteur:
             return
 
         genre = message.get("MessageType")
+        if genre is None and "Message" not in message:
+            # Accusé d'abonnement : il indique notamment si la compression est active
+            if self.confirmation is None:
+                self.confirmation = {k: v for k, v in message.items() if "key" not in k.lower()}
+            self.compteurs["ignores"] += 1
+            return
         contenu = (message.get("Message") or {}).get(genre) or {}
         meta = message.get("MetaData") or {}
         if genre == "ShipStaticData":
@@ -157,6 +164,7 @@ class Collecteur:
             "navires_distincts_statiques": len(self.vus_statiques),
             "citernes_identifiees_parmi_positions": citernes_vues,
             "messages_par_seconde": round(self.compteurs["messages"] / max(minutes * 60, 1), 1),
+            "accuse_abonnement": self.confirmation,
         }
 
     def petroliers(self) -> list[dict]:
