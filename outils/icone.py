@@ -1,42 +1,56 @@
-"""Icône Vigie pétrole : un fût de pétrole vu de trois quarts, flancs droits, deux cerclages."""
+"""Icône de Vigie pétrole : un fût ivoire mat sur fond noir, bouchon rouge.
 
-G, D, H, B, RY = 168, 344, 120, 392, 24   # gauche, droite, haut, bas du corps, demi-hauteur des ellipses
-CX, RX = (G + D) / 2, (D - G) / 2
+    python outils/icone.py site/      écrit icon.svg, icon-maskable.svg et apple-touch-icon.svg
+
+Les PNG (192, 512, masquable, iOS) se rendent ensuite depuis ces SVG avec n'importe quel
+navigateur ou outil de conversion. Le fût a les proportions d'un vrai fût de 200 litres ;
+les cerclages sont des bandes d'épaisseur constante qui suivent la courbure du cylindre.
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+IVOIRE, NOIR, ROUGE = "#ECE9E3", "#111111", "#FF3B30"
+CX, RX, RY = 256, 92, 26          # centre, demi-largeur, demi-hauteur des ellipses
+HAUT, BAS = 140, 372              # centre de l'ellipse du couvercle et du fond
+G, D = CX - RX, CX + RX
+C1, C2 = HAUT + (BAS - HAUT) / 3, HAUT + 2 * (BAS - HAUT) / 3
 
 
-def corps():
-    return f"M{G} {H}V{B}A{RX} {RY} 0 0 0 {D} {B}V{H}Z"
+def bande(y: float, e: float) -> str:
+    """Bande d'épaisseur verticale constante e centrée sur la courbe du cylindre à la hauteur y."""
+    h = e / 2
+    return f"M{G} {y - h}A{RX} {RY} 0 0 0 {D} {y - h}V{y + h}A{RX} {RY} 0 0 1 {G} {y + h}Z"
 
 
-def cerclage(y):
-    return f"M{G} {y}A{RX} {RY} 0 0 0 {D} {y}"
+def corps() -> str:
+    return f"M{G} {HAUT}V{BAS}A{RX} {RY} 0 0 0 {D} {BAS}V{HAUT}Z"
 
 
-def svg(fond_plein=False, echelle=1.0, teinte="rouge", fond="#0c0c0c", rayon=112):
-    if teinte == "rouge":
-        c, couvercle, rebord, ombre = "#ff3b30", "#ff6b61", "#d92d23", "#0c0c0c"
-    else:
-        c, couvercle, rebord, ombre = "#efefec", "#ffffff", "#c9c9c4", "#0c0c0c"
-    fond_svg = f'<rect width="512" height="512" fill="{fond}"/>' if fond_plein else f'<rect width="512" height="512" rx="{rayon}" fill="{fond}"/>'
+def icone(fond_plein: bool = False, echelle: float = 1.0) -> str:
+    fond = f'<rect width="512" height="512" fill="{NOIR}"/>' if fond_plein else f'<rect width="512" height="512" rx="112" fill="{NOIR}"/>'
     t = f"translate(256 256) scale({echelle}) translate(-256 -256)"
-    y1, y2 = H + (B - H) * 0.37, H + (B - H) * 0.70
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-{fond_svg}
+{fond}
 <defs><clipPath id="f"><path d="{corps()}"/></clipPath></defs>
 <g transform="{t}">
-  <path d="{corps()}" fill="{c}"/>
-  <rect x="{G + 22}" y="{H + 26}" width="14" height="{B - H - 30}" rx="7" fill="#fff" opacity="{0.2 if teinte == 'rouge' else 0}"/>
-  <g clip-path="url(#f)" fill="none" stroke="{ombre}" stroke-width="12">
-    <path d="{cerclage(y1)}"/><path d="{cerclage(y2)}"/>
-  </g>
-  <ellipse cx="{CX}" cy="{H}" rx="{RX}" ry="{RY}" fill="{couvercle}"/>
-  <ellipse cx="{CX}" cy="{H}" rx="{RX - 11}" ry="{RY - 6}" fill="none" stroke="{rebord}" stroke-width="4"/>
-  <ellipse cx="{CX + 42}" cy="{H - 3}" rx="13" ry="5.5" fill="{rebord}"/>
+  <path d="{corps()}" fill="{IVOIRE}"/>
+  <g fill="{NOIR}" clip-path="url(#f)"><path d="{bande(C1, 9)}"/><path d="{bande(C2, 9)}"/><path d="{bande(HAUT + 4, 8)}"/></g>
+  <ellipse cx="{CX}" cy="{HAUT}" rx="{RX - 1}" ry="{RY - 1}" fill="{IVOIRE}"/>
+  <ellipse cx="{CX + 40}" cy="{HAUT - 2}" rx="12" ry="5.5" fill="{ROUGE}"/>
 </g>
-</svg>'''
+</svg>
+'''
+
+
+def main(dossier: str = ".") -> None:
+    sortie = Path(dossier)
+    (sortie / "icon.svg").write_text(icone())                                   # onglet, icône « any » arrondie
+    (sortie / "icon-maskable.svg").write_text(icone(fond_plein=True, echelle=0.92))  # Android : zone sûre de 80 %
+    (sortie / "apple-touch-icon.svg").write_text(icone(fond_plein=True, echelle=1.05))  # iOS arrondit lui-même
 
 
 if __name__ == "__main__":
-    open("icon.svg", "w").write(svg(echelle=1.15))                      # favicon et icône « any »
-    open("icon-maskable.svg", "w").write(svg(fond_plein=True, echelle=0.95))  # Android, zone sûre de 80 %
-    open("apple-touch-icon.svg", "w").write(svg(fond_plein=True, echelle=1.08))  # iOS arrondit lui-même
+    main(sys.argv[1] if len(sys.argv) > 1 else ".")

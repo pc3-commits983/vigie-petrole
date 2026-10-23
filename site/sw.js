@@ -2,7 +2,7 @@
 // - Fichiers du site et données : réseau d'abord (les données changent chaque heure), cache si hors ligne.
 // - Bibliothèques et polices des CDN (versions figées) : cache d'abord, mises à jour en arrière-plan.
 
-const CACHE = "vigie-v1";
+const CACHE = "vigie-v2";
 const COQUILLE = [
   "./",
   "index.html",
