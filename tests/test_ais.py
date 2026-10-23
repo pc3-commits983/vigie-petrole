@@ -84,6 +84,19 @@ class TestCollecteur(unittest.TestCase):
         self.c.traiter(statique(5, 60))
         self.assertNotIn("5", self.c.registre)
 
+    def test_barges_fluviales_ecartees(self):
+        barge = statique(444444444, 80)
+        barge["Message"]["ShipStaticData"]["Dimension"] = {"A": 100, "B": 10, "C": 5, "D": 6}  # 110 m x 11 m
+        self.c.traiter(barge)
+        self.c.traiter(position(444444444, 51.9, 4.1, sog=0))
+        self.assertIn("444444444", self.c.registre)
+        self.assertEqual(self.c.petroliers(), [])
+        self.assertEqual(self.c.diagnostic(1)["dont_barges_ou_petites_citernes_ecartees"], 1)
+
+    def test_accuse_d_abonnement_conserve_sans_la_cle(self):
+        self.c.traiter({"Status": "subscribed", "CompressionEnabled": True, "APIKey": "secret"})
+        self.assertEqual(self.c.confirmation, {"Status": "subscribed", "CompressionEnabled": True})
+
     def test_erreur_de_cle(self):
         self.c.traiter(json.dumps({"error": "Api Key Is Not Valid"}))
         self.assertEqual(self.c.erreur, "Api Key Is Not Valid")
@@ -92,10 +105,11 @@ class TestCollecteur(unittest.TestCase):
 class TestFusionEtZones(unittest.TestCase):
     def test_fusion_garde_les_recents(self):
         anciens = [
-            {"mmsi": "1", "lat": 1, "lon": 1, "vu": iso(INSTANT - timedelta(hours=5))},
-            {"mmsi": "2", "lat": 2, "lon": 2, "vu": iso(INSTANT - timedelta(hours=50))},
+            {"mmsi": "1", "lat": 1, "lon": 1, "longueur": 250, "vu": iso(INSTANT - timedelta(hours=5))},
+            {"mmsi": "2", "lat": 2, "lon": 2, "longueur": 250, "vu": iso(INSTANT - timedelta(hours=50))},
+            {"mmsi": "3", "lat": 3, "lon": 3, "longueur": 110, "vu": iso(INSTANT - timedelta(hours=1))},  # barge
         ]
-        nouveaux = [{"mmsi": "1", "lat": 9, "lon": 9, "vu": iso(INSTANT)}]
+        nouveaux = [{"mmsi": "1", "lat": 9, "lon": 9, "longueur": 250, "vu": iso(INSTANT)}]
         resultat = fusionner(anciens, nouveaux, INSTANT, 36)
         self.assertEqual([p["mmsi"] for p in resultat], ["1"])
         self.assertEqual(resultat[0]["lat"], 9)

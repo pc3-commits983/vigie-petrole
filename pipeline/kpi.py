@@ -25,9 +25,14 @@ def _moyenne_fenetre(jours: list[date], valeurs: list[float], fin: date, nb: int
     return moyenne([v for j, v in zip(jours, valeurs) if debut <= j <= fin])
 
 
+# En dessous de ce trafic moyen (navires-citernes par jour sur un an), les variations sont surtout
+# du bruit statistique : 1 navire de plus ou de moins fait varier le chiffre de 50 %.
+TRAFIC_MIN_FIABLE = 5
+
+
 def etat_detroit(p7: float | None, p7_prec: float | None, p365: float | None) -> str | None:
     """Qualifie le niveau de passage par rapport à la moyenne sur un an."""
-    if p7 is None or not p365:
+    if p7 is None or not p365 or p365 < TRAFIC_MIN_FIABLE:
         return None
     ratio = p7 / p365
     if p7_prec is not None and p7_prec / p365 <= 0.2 and p7 >= 2 * max(p7_prec, 0.5) and ratio >= 0.25:
@@ -62,14 +67,16 @@ def indicateurs_detroits(donnees: dict) -> list[dict]:
         ]
         normes = [abs(v["valeur"] or 0) / s for v, s in zip(variations, (30, 25, 40))]
         poids = DETROITS_MAJEURS.get(d["id"], 1.0 if d.get("petrole") else 0.5)
+        if not p365 or p365 < TRAFIC_MIN_FIABLE:
+            poids *= 0.25
         etat = etat_detroit(p7, p7_prec, p365)
-        bonus = 1.5 if etat in ("quasi à l'arrêt", "reprise") else 0
+        bonus = 1.5 if etat in ("quasi à l'arrêt", "reprise") and d["id"] in DETROITS_MAJEURS else 0
         resultat.append({
             "id": f"detroit:{d['id']}",
             "categorie": "Détroit",
             "titre": d["nom"],
             "valeur": arrondi(p7, 1),
-            "unite": "navires-citernes / j",
+            "unite": "navires-citernes / j visibles à l'AIS",
             "variations": variations,
             "principale": max(range(3), key=lambda i: normes[i]),
             "etat": etat,
@@ -146,9 +153,13 @@ def indicateurs_zones(donnees: dict) -> list[dict]:
     for ident, (total, arret) in dernier["z"].items():
         if total < 15:
             continue
-        avant = il_y_a_7j["z"].get(ident, [None])[0] if il_y_a_7j else None
-        variation = ecart_pct(total, avant)
+        avant_total, avant_arret = (il_y_a_7j["z"].get(ident) or [None, None]) if il_y_a_7j else (None, None)
+        variation = ecart_pct(total, avant_total)
         part = round(100 * arret / total)
+        # Les ports et mouillages sont toujours pleins de navires à l'arrêt : on ne parle de
+        # congestion que si la part à l'arrêt a nettement augmenté en une semaine.
+        part_avant = round(100 * avant_arret / avant_total) if avant_total else None
+        congestion = part_avant is not None and part - part_avant >= 15
         zone = noms.get(ident, {})
         bbox = zone.get("bbox")
         resultat.append({
@@ -159,8 +170,8 @@ def indicateurs_zones(donnees: dict) -> list[dict]:
             "unite": f"navires-citernes, {part} % à l'arrêt",
             "variations": [{"libelle": "7 j", "valeur": variation, "unite": "%"}],
             "principale": 0,
-            "etat": "congestion" if part >= 60 else None,
-            "score": round(0.5 * abs(variation or 0) / 40 + (0.8 if part >= 60 else 0), 2),
+            "etat": "congestion" if congestion else None,
+            "score": round(0.5 * abs(variation or 0) / 40 + (0.8 if congestion else 0), 2),
             "date": t,
             "source": "aisstream.io",
             "carte": [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2] if bbox else None,

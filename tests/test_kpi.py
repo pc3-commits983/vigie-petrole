@@ -29,6 +29,12 @@ class TestDetroits(unittest.TestCase):
         self.assertEqual(ind["etat"], "quasi à l'arrêt")
         self.assertGreater(ind["score"], 3)
 
+    def test_petit_detroit_peu_fiable(self):
+        # 2 navires par jour en moyenne : une chute à zéro n'est pas un signal fiable
+        ind = kpi.indicateurs_detroits(detroit([2] * 380 + [0] * 14, ident="chokepoint28", nom="Détroit de Kertch"))[0]
+        self.assertIsNone(ind["etat"])
+        self.assertLess(ind["score"], 1.5)
+
     def test_trafic_normal(self):
         ind = kpi.indicateurs_detroits(detroit([40] * 400))[0]
         self.assertIsNone(ind["etat"])

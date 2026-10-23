@@ -26,6 +26,21 @@ MONDE = [[[-90.0, -180.0], [90.0, 180.0]]]
 REGISTRE_RETENTION_JOURS = 180
 
 
+# Les barges-citernes fluviales (Rhin, Escaut...) émettent aussi le type AIS 80 à 89, mais ce ne
+# sont pas des pétroliers de mer : leur largeur est limitée à 11,45 m par les écluses. On garde
+# les navires d'au moins 14 m de large et 90 m de long ; si la largeur est inconnue, 140 m de long.
+LARGEUR_MIN_M = 14
+LONGUEUR_MIN_M = 90
+LONGUEUR_MIN_SANS_LARGEUR_M = 140
+
+
+def navire_de_mer(fiche: dict) -> bool:
+    largeur, longueur = fiche.get("largeur"), fiche.get("longueur")
+    if largeur:
+        return largeur >= LARGEUR_MIN_M and (longueur or 0) >= LONGUEUR_MIN_M
+    return (longueur or 0) >= LONGUEUR_MIN_SANS_LARGEUR_M
+
+
 class ErreurAIS(RuntimeError):
     """Erreur renvoyée par aisstream (clé refusée, abonnement invalide...)."""
 
@@ -115,6 +130,7 @@ class Collecteur:
             return
         dimension = s.get("Dimension") or {}
         longueur = (dimension.get("A") or 0) + (dimension.get("B") or 0)
+        largeur = (dimension.get("C") or 0) + (dimension.get("D") or 0)
         imo = s.get("ImoNumber")
         tirant = s.get("MaximumStaticDraught")
         self.registre[mmsi] = {
@@ -124,6 +140,7 @@ class Collecteur:
             "destination": _nettoyer_texte(s.get("Destination")),
             "tirant_eau": round(tirant, 1) if isinstance(tirant, (int, float)) and tirant > 0 else None,
             "longueur": longueur if longueur > 0 else None,
+            "largeur": largeur if largeur > 0 else None,
             "vu": iso(self.horloge()),
         }
 
@@ -159,10 +176,12 @@ class Collecteur:
     def diagnostic(self, minutes: float) -> dict:
         """Mesure de la couverture du flux pendant ce passage, pour juger la densité de la carte."""
         citernes_vues = sum(1 for m in self.positions if m in self.registre)
+        barges = sum(1 for m in self.positions if m in self.registre and not navire_de_mer(self.registre[m]))
         return {
             "navires_distincts_positions": len(self.positions),
             "navires_distincts_statiques": len(self.vus_statiques),
             "citernes_identifiees_parmi_positions": citernes_vues,
+            "dont_barges_ou_petites_citernes_ecartees": barges,
             "messages_par_seconde": round(self.compteurs["messages"] / max(minutes * 60, 1), 1),
             "accuse_abonnement": self.confirmation,
         }
@@ -172,7 +191,7 @@ class Collecteur:
         resultat = []
         for mmsi, pos in self.positions.items():
             fiche = self.registre.get(mmsi)
-            if not fiche:
+            if not fiche or not navire_de_mer(fiche):
                 continue
             resultat.append(
                 {
@@ -184,6 +203,7 @@ class Collecteur:
                     "destination": fiche.get("destination"),
                     "tirant_eau": fiche.get("tirant_eau"),
                     "longueur": fiche.get("longueur"),
+                    "largeur": fiche.get("largeur"),
                 }
             )
         return resultat
@@ -230,10 +250,14 @@ async def ecouter(cle: str, minutes: float, collecteur: Collecteur, url: str = U
             await asyncio.sleep(min(30, 2**echecs))
 
 
-def fusionner(anciens: list[dict], nouveaux: list[dict], instant: datetime, retention_h: float) -> list[dict]:
+def fusionner(anciens: list[dict], nouveaux: list[dict], instant: datetime, retention_h: float, registre: dict | None = None) -> list[dict]:
     """Garde les pétroliers récents : les nouvelles positions remplacent les anciennes."""
     limite = instant - timedelta(hours=retention_h)
-    par_mmsi = {p["mmsi"]: p for p in anciens or [] if "mmsi" in p}
+    registre = registre or {}
+    par_mmsi = {
+        p["mmsi"]: p for p in anciens or []
+        if "mmsi" in p and navire_de_mer({**p, **registre.get(p["mmsi"], {})})
+    }
     for p in nouveaux:
         par_mmsi[p["mmsi"]] = p
     garde = []
@@ -278,7 +302,7 @@ def mettre_a_jour(data_dir: Path, collecteur: Collecteur, minutes: float, instan
     """Écrit tankers.json, tanker_registry.json et zones.json à partir d'un collecteur rempli."""
     instant = instant or maintenant()
     anciens = (lire_json(data_dir / config.FICHIERS["petroliers"], {}) or {}).get("petroliers", [])
-    petroliers = fusionner(anciens, collecteur.petroliers(), instant, config.AIS_RETENTION_HEURES)
+    petroliers = fusionner(anciens, collecteur.petroliers(), instant, config.AIS_RETENTION_HEURES, collecteur.registre)
     registre = nettoyer_registre(collecteur.registre, instant)
 
     ecrire_json(
