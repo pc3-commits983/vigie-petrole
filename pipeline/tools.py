@@ -1,7 +1,7 @@
 """Outils de l'agent : uniquement de la lecture des fichiers de données déjà collectés.
 
 Chaque outil renvoie un petit dictionnaire JSON. L'agent ne peut ni écrire, ni appeler
-Internet, ni exécuter de code : il ne voit le monde qu'à travers ces six fonctions.
+Internet, ni exécuter de code : il ne voit le monde qu'à travers ces sept fonctions.
 """
 
 from __future__ import annotations
@@ -33,6 +33,16 @@ class Outils:
 
     def _lire(self, cle: str) -> dict:
         return lire_json(self.data_dir / config.FICHIERS[cle], {}) or {}
+
+    # --- Indicateurs clés (calculés par pipeline/kpi.py) ------------------------------------
+    def indicateurs_cles(self) -> dict:
+        donnees = self._lire("indicateurs")
+        champs = ("id", "categorie", "titre", "valeur", "unite", "variations", "etat", "score", "date")
+        indicateurs = [{k: i.get(k) for k in champs} for i in donnees.get("indicateurs", [])]
+        return {
+            "lecture": "Trié par score d'importance décroissant (règles fixes). Variations en % sauf mention (pb = points de base).",
+            "indicateurs": indicateurs[:40],
+        }
 
     # --- Détroits -------------------------------------------------------------------------
     def etat_des_detroits(self) -> dict:
@@ -169,6 +179,11 @@ class Outils:
 
 
 DECLARATIONS = [
+    {
+        "name": "indicateurs_cles",
+        "description": "Liste des indicateurs chiffrés disponibles (détroits, marchés, zones, stocks) avec leur identifiant, "
+        "leur valeur, leurs variations, leur état éventuel et un score d'importance. À appeler en premier.",
+    },
     {
         "name": "etat_des_detroits",
         "description": "Passages quotidiens de pétroliers dans les détroits (IMF PortWatch) : moyenne des 7 derniers jours publiés, "

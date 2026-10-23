@@ -16,15 +16,18 @@ FICHIERS = {
     "detroits": "chokepoints.json",
     "marches": "markets.json",
     "analyse": "analysis.json",
+    "indicateurs": "kpis.json",
     "etat": "status.json",
 }
 
 # Durée d'écoute du flux AIS à chaque passage (minutes)
-AIS_MINUTES = float(os.environ.get("AIS_MINUTES", "8"))
+AIS_MINUTES = float(os.environ.get("AIS_MINUTES", "15"))
 # Un pétrolier non revu depuis ce délai disparaît de la carte (heures)
 AIS_RETENTION_HEURES = float(os.environ.get("AIS_RETENTION_HEURES", "36"))
 # Fréquence de régénération de l'analyse (heures)
-ANALYSE_TOUTES_LES_HEURES = float(os.environ.get("ANALYSE_TOUTES_LES_HEURES", "24"))
+ANALYSE_TOUTES_LES_HEURES = float(os.environ.get("ANALYSE_TOUTES_LES_HEURES", "6"))
+# PortWatch ne publie qu'une fois par semaine : inutile de tout retélécharger à chaque heure
+PORTWATCH_TOUTES_LES_HEURES = float(os.environ.get("PORTWATCH_TOUTES_LES_HEURES", "12"))
 # Historique des comptages par zone conservé (jours)
 ZONES_HISTORIQUE_JOURS = 45
 

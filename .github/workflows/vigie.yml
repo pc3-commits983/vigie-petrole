@@ -1,5 +1,5 @@
-# Chaque heure : collecte des positions de pétroliers, puis une fois par jour PortWatch, marchés
-# et analyse de l'agent. Le site est ensuite publié sur GitHub Pages.
+# Chaque heure : positions des pétroliers, cours, indicateurs clés ; PortWatch deux fois par jour ;
+# sélection de l'agent toutes les 6 heures. Le site est ensuite publié sur GitHub Pages.
 name: Vigie pétrole
 
 on:
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       analyse:
-        description: "Régénérer l'analyse maintenant"
+        description: "Refaire la sélection de l'agent maintenant"
         type: boolean
         default: true
 
@@ -29,7 +29,7 @@ concurrency:
 jobs:
   construire:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     # Cette tâche manipule les clés et des données venues d'Internet : lecture seule sur le dépôt
     permissions:
       contents: read

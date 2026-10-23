@@ -3,8 +3,9 @@
     python -m pipeline.run --out _site            passage normal
     python -m pipeline.run --out _site --demo     site complet avec des données fictives (sans clé)
 
-À chaque passage : on récupère l'état précédent, on écoute le flux AIS quelques minutes, puis,
-une fois par jour, on actualise PortWatch et les marchés et l'agent rédige l'analyse.
+À chaque passage (toutes les heures) : on récupère l'état précédent, on écoute le flux AIS,
+on actualise les cours, PortWatch deux fois par jour, puis on recalcule les indicateurs clés.
+Toutes les 6 heures, l'agent choisit les indicateurs du jour et écrit une ligne pour chacun.
 Chaque étape est isolée : si l'une échoue, les autres continuent et le site est quand même publié.
 """
 
@@ -17,8 +18,8 @@ import shutil
 import sys
 from pathlib import Path
 
-from . import agent, collect_ais, config, markets, portwatch, state
-from .util import ecrire_json, iso, lire_json, maintenant, masquer
+from . import agent, collect_ais, config, kpi, markets, portwatch, state
+from .util import ecrire_json, iso, lire_iso, lire_json, maintenant, masquer
 
 log = logging.getLogger("vigie")
 
@@ -49,12 +50,22 @@ def analyse_a_refaire(data_dir: Path, forcer: bool, cle_gemini: str) -> bool:
     """Vrai si l'analyse est trop ancienne, demandée, ou si la dernière a dû se passer de Gemini.
 
     Dans ce dernier cas (surcharge passagère, par exemple), on retente à chaque passage horaire
-    au lieu d'attendre 24 heures avec un rapport par règles.
+    au lieu d'attendre plusieurs heures avec une sélection par règles.
     """
     if forcer or agent.analyse_perimee(data_dir, config.ANALYSE_TOUTES_LES_HEURES):
         return True
     derniere = lire_json(data_dir / config.FICHIERS["analyse"], {}) or {}
     return bool(cle_gemini) and derniere.get("mode") == "regles"
+
+
+def portwatch_a_refaire(data_dir: Path) -> bool:
+    donnees = lire_json(data_dir / config.FICHIERS["detroits"], {}) or {}
+    genere = lire_iso(donnees.get("genere_le"))
+    return genere is None or (maintenant() - genere).total_seconds() > config.PORTWATCH_TOUTES_LES_HEURES * 3600
+
+
+def resume_analyse(resultat: dict) -> dict:
+    return {"mode": resultat["mode"], "modele": resultat["modele"], "titre": resultat.get("titre"), "erreur_ia": resultat["erreur_ia"]}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -75,7 +86,8 @@ def main(argv: list[str] | None = None) -> int:
         from . import demo
 
         etape(etat, "demo", demo.generer, data_dir)
-        etape(etat, "analyse", lambda: agent.produire_analyse(data_dir, cle="")["mode"])
+        etape(etat, "indicateurs", kpi.construire, data_dir)
+        etape(etat, "analyse", lambda: resume_analyse(agent.produire_analyse(data_dir, cle="")))
     else:
         url = state.url_du_site()
         if url:
@@ -89,19 +101,18 @@ def main(argv: list[str] | None = None) -> int:
         else:
             etape(etat, "ais", collect_ais.collecter, data_dir, cle_ais)
 
+        etape(etat, "marches", markets.actualiser, data_dir)
+        if portwatch_a_refaire(data_dir):
+            etape(etat, "portwatch", portwatch.actualiser, data_dir)
+        else:
+            etat["etapes"]["portwatch"] = {"ok": True, "details": "déjà à jour"}
+        etape(etat, "indicateurs", kpi.construire, data_dir)
+
         forcer = args.forcer_analyse or os.environ.get("FORCER_ANALYSE", "").lower() == "true"
         if analyse_a_refaire(data_dir, forcer, os.environ.get("GEMINI_API_KEY", "").strip()):
-            etape(etat, "portwatch", portwatch.actualiser, data_dir)
-            etape(etat, "marches", markets.actualiser, data_dir)
-            resultat = etape(etat, "analyse", agent.produire_analyse, data_dir)
-            if resultat:
-                etat["etapes"]["analyse"]["details"] = {
-                    "mode": resultat["mode"],
-                    "modele": resultat["modele"],
-                    "erreur_ia": resultat["erreur_ia"],
-                }
+            etape(etat, "analyse", lambda: resume_analyse(agent.produire_analyse(data_dir)))
         else:
-            etat["etapes"]["analyse"] = {"ok": True, "details": "analyse du jour déjà faite"}
+            etat["etapes"]["analyse"] = {"ok": True, "details": "sélection récente conservée"}
 
     etat["fin"] = iso(maintenant())
     ecrire_json(data_dir / config.FICHIERS["etat"], etat, compact=False)

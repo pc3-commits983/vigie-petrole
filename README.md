@@ -5,7 +5,7 @@ Une application gratuite qui suit les pétroliers sur une carte du monde et qui,
 - **Carte** : les navires-citernes repérés par l'AIS, en rouge sur un fond en niveaux de gris, orientés selon leur cap. Un navire plein est en route, un navire en contour est à l'arrêt, un navire pâle n'a pas été revu depuis plus de 3 heures. Un clic affiche sa fiche (vitesse, destination, tirant d'eau…).
 - **Détroits** : les passages quotidiens de navires-citernes publiés par IMF PortWatch (Ormuz, Bab el-Mandeb, Suez, Malacca…), comparés aux 4 semaines précédentes et à l'an dernier.
 - **Marchés** : Brent, WTI, gaz européen, S&P 500, VIX, taux américain à 10 ans, dollar, euro, or, et stocks de brut américains.
-- **Analyse du jour** : un agent (Gemini) consulte ces données avec six outils en lecture seule, cherche dans une bibliothèque de quatorze articles scientifiques, puis rédige un rapport en cinq parties. Un contrôle automatique vérifie la structure et signale toute citation qui n'est pas dans la bibliothèque.
+- **L'essentiel** : des cartes d'indicateurs clés (par exemple « Brent +5 % sur 1 mois » ou « Détroit d'Ormuz, reprise, +400 % sur 1 semaine »). Le programme calcule tous les chiffres ; un agent (Gemini) choisit les 4 à 8 indicateurs qui comptent le plus pour les marchés et écrit une ligne pour chacun, en s'appuyant sur une bibliothèque de quatorze articles scientifiques.
 
 Tout tourne sur GitHub : une tâche planifiée collecte les données chaque heure et publie le site sur GitHub Pages. Il n'y a pas de serveur à louer.
 
@@ -45,10 +45,10 @@ Les secrets ne sont jamais visibles dans le site ni dans le code : seule la tâc
 
 1. **Settings → Pages → Build and deployment → Source** : choisis **GitHub Actions**.
 2. Onglet **Actions** → **Vigie pétrole** → **Run workflow** → **Run workflow**.
-3. Attends une douzaine de minutes (8 minutes d'écoute du flux AIS, puis PortWatch, les marchés et l'analyse).
+3. Attends un petit quart d'heure (15 minutes d'écoute du flux AIS, puis PortWatch, les marchés, les indicateurs et l'agent).
 4. Ton application est en ligne à l'adresse `https://<ton-pseudo>.github.io/vigie-petrole/`.
 
-Ensuite, tout est automatique : les positions sont mises à jour chaque heure et l'analyse une fois par jour. Pour régénérer l'analyse tout de suite, relance **Run workflow**.
+Ensuite, tout est automatique : positions, cours et indicateurs chaque heure, sélection de l'agent toutes les 6 heures. Pour refaire la sélection tout de suite, relance **Run workflow**.
 
 ---
 
@@ -70,14 +70,14 @@ Puis ouvre http://localhost:8000 dans ton navigateur.
 ```
 Chaque heure (GitHub Actions)
   1. Récupère les fichiers du passage précédent depuis le site publié  ->  pipeline/state.py
-  2. Écoute le flux AIS mondial pendant 8 minutes                      ->  pipeline/collect_ais.py
+  2. Écoute le flux AIS mondial pendant 15 minutes                     ->  pipeline/collect_ais.py
      garde les navires-citernes (types AIS 80 à 89)
-Une fois par jour
-  3. Télécharge les passages dans les détroits (PortWatch)            ->  pipeline/portwatch.py
-  4. Télécharge les cours (Yahoo Finance, FRED en secours, EIA)        ->  pipeline/markets.py
-  5. L'agent rédige l'analyse                                          ->  pipeline/agent.py
+  3. Télécharge les cours (Yahoo Finance, FRED en secours, EIA)        ->  pipeline/markets.py
+  4. PortWatch, deux fois par jour                                     ->  pipeline/portwatch.py
+  5. Calcule les indicateurs clés (valeurs, variations, importance)   ->  pipeline/kpi.py
+  6. Toutes les 6 heures, l'agent choisit et commente les indicateurs ->  pipeline/agent.py
 Puis
-  6. Publie le site (site/index.html + data/*.json) sur GitHub Pages
+  7. Publie le site (site/index.html + data/*.json) sur GitHub Pages
 ```
 
 **Pourquoi relire le site publié ?** GitHub Actions repart d'une machine vierge à chaque fois. Enregistrer les données dans le dépôt ferait grossir l'historique Git de plusieurs Mo par jour ; le site publié sert donc de mémoire d'un passage à l'autre.
@@ -93,9 +93,9 @@ La boucle est écrite à la main avec l'API REST de Gemini, sans bibliothèque, 
 3. le programme exécute l'outil (`pipeline/tools.py`) et lui renvoie le résultat ;
 4. on recommence jusqu'à ce qu'il rende son texte.
 
-Les six outils ne font que lire les fichiers déjà collectés : l'agent ne peut ni écrire, ni naviguer sur Internet, ni exécuter de code. Les consignes lui imposent de n'utiliser que les chiffres fournis, de dater les données, de séparer faits et interprétations, et de ne citer que les articles de la bibliothèque.
+Les sept outils ne font que lire les fichiers déjà collectés : l'agent ne peut ni écrire, ni naviguer sur Internet, ni exécuter de code. Les consignes lui imposent de n'utiliser que les chiffres fournis, de dater les données, de séparer faits et interprétations, et de ne citer que les articles de la bibliothèque.
 
-Après la rédaction, `controler()` vérifie les cinq titres et repère les citations inconnues ; la section Sources est ajoutée par le programme, pas par le modèle. Sans clé Gemini, ou si l'appel échoue, un rapport construit par des règles fixes prend le relais.
+Le modèle répond en JSON : un titre, les identifiants des indicateurs choisis, une ligne par indicateur et deux ou trois points à surveiller. `valider()` écarte tout identifiant inventé et toute citation absente de la bibliothèque. Les chiffres affichés viennent toujours de `kpi.py`, jamais du modèle. Sans clé Gemini, ou si l'appel échoue, une sélection par règles fixes prend le relais, et l'agent retente au passage suivant.
 
 ### La bibliothèque scientifique
 
@@ -127,10 +127,10 @@ Après la rédaction, `controler()` vérifie les cinq titres et repère les cita
 
 | Réglage | Où | Effet |
 |---|---|---|
-| Durée d'écoute AIS | `AIS_MINUTES` dans `pipeline/config.py` | 8 minutes par défaut |
+| Durée d'écoute AIS | `AIS_MINUTES` dans `pipeline/config.py` | 15 minutes par défaut |
 | Zones du tableau | `ZONES` dans `pipeline/config.py` | rectangles latitude/longitude |
 | Modèle Gemini | variable de dépôt `GEMINI_MODEL` (**Settings → Variables**) | par défaut `gemini-flash-latest`, puis `gemini-flash-lite-latest` en secours |
-| Fréquence de l'analyse | `ANALYSE_TOUTES_LES_HEURES` | 24 heures par défaut |
+| Fréquence de la sélection | `ANALYSE_TOUTES_LES_HEURES` | 6 heures par défaut |
 | Articles | `pipeline/litterature.json` | ajoute un article avec ses thèmes |
 
 ---
@@ -142,7 +142,7 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-38 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), contrôle des citations, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
+46 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), calcul des indicateurs (dont la détection d'une reprise de trafic), validation de la sélection de l'agent, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
 
 ## Structure
 
@@ -152,7 +152,8 @@ pipeline/
   collect_ais.py    écoute du flux AIS et registre des citernes
   portwatch.py      passages dans les détroits
   markets.py        cours et stocks
-  tools.py          les six outils de l'agent (lecture seule)
+  kpi.py            calcul des indicateurs clés
+  tools.py          les sept outils de l'agent (lecture seule)
   agent.py          boucle Gemini, contrôle, rapport de secours
   litterature.json  bibliothèque d'articles
   state.py          relecture du passage précédent

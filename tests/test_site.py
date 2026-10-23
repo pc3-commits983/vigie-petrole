@@ -22,7 +22,7 @@ class TestConstructionDuSite(unittest.TestCase):
 
     def test_la_page_lit_les_fichiers_produits(self):
         page = (config.SITE_SRC / "index.html").read_text(encoding="utf-8")
-        for cle in ("petroliers", "detroits", "zones", "marches", "analyse", "etat"):
+        for cle in ("petroliers", "detroits", "zones", "marches", "analyse", "indicateurs", "etat"):
             self.assertIn(f"data/{config.FICHIERS[cle]}", page)
         # bibliothèques chargées depuis cdnjs, versions fixées
         for src in re.findall(r'<script src="([^"]+)"', page):
@@ -37,10 +37,10 @@ class TestQuandRefaireLAnalyse(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)
             self.assertTrue(run.analyse_a_refaire(data, False, ""))  # aucune analyse encore
-            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "regles"})
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "regles", "format": 2})
             self.assertTrue(run.analyse_a_refaire(data, False, "cle"))
             self.assertFalse(run.analyse_a_refaire(data, False, ""))
-            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "ia"})
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "ia", "format": 2})
             self.assertFalse(run.analyse_a_refaire(data, False, "cle"))
             self.assertTrue(run.analyse_a_refaire(data, True, "cle"))
 
@@ -68,7 +68,7 @@ class TestSecrets(unittest.TestCase):
     def test_la_page_echappe_les_textes_venus_de_l_ais(self):
         page = (config.SITE_SRC / "index.html").read_text(encoding="utf-8")
         self.assertIn("echapper(n.nom", page)
-        self.assertIn("DOMPurify.sanitize", page)
+        self.assertIn("echapper(choix.pourquoi)", page)  # texte écrit par le modèle
 
 
 class TestUrlDuSite(unittest.TestCase):

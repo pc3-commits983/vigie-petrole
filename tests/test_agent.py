@@ -6,20 +6,26 @@ from unittest import mock
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
-from pipeline import agent, demo
+from pipeline import agent, demo, kpi
 from pipeline.tools import Outils, executer
 
-TEXTE_FINAL = """## Flux dans les détroits
-Les passages à Bab el-Mandeb baissent (données PortWatch au 17 octobre).
-## Pétrole et prix
-Le Brent progresse.
-## Canaux vers les marchés
-Une crainte sur l'offre ferait baisser les actions (Kilian et Park, 2009).
-## Points à surveiller
-- Prochaine publication PortWatch.
-## Limites des données
-- Couverture AIS côtière (Adland, Jia et Strandenes, 2017).
-"""
+SELECTION = {
+    "titre": "Bab el-Mandeb ralentit, le pétrole se tend",
+    "indicateurs": [
+        {"id": "detroit:chokepoint4", "pourquoi": "Moins de pétrole vers l'Europe, risque sur l'offre.", "reference": "Kilian, 2009"},
+        {"id": "marche:brent", "pourquoi": "Pèse sur l'inflation et les marges.", "reference": None},
+        {"id": "marche:vix", "pourquoi": "La nervosité gagne les actions.", "reference": "Kilian et Park, 2009"},
+        {"id": "marche:inexistant", "pourquoi": "Identifiant inventé.", "reference": None},
+        {"id": "detroit:chokepoint7", "pourquoi": "Détours par le Cap, fret plus cher.", "reference": "Dupont, 2021"},
+    ],
+    "a_surveiller": ["Prochaine publication PortWatch pour Bab el-Mandeb", "Brent au-dessus de son plus haut annuel"],
+}
+TEXTE_FINAL = "Voici ma sélection :\n```json\n" + json.dumps(SELECTION, ensure_ascii=False) + "\n```"
+
+
+def preparer(dossier: Path) -> None:
+    demo.generer(dossier)
+    kpi.construire(dossier)
 
 
 class FauxGemini(BaseHTTPRequestHandler):
@@ -59,7 +65,7 @@ class TestAgent(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.data = Path(cls.tmp.name)
-        demo.generer(cls.data)
+        preparer(cls.data)
         cls.serveur = HTTPServer(("127.0.0.1", 0), FauxGemini)
         threading.Thread(target=cls.serveur.serve_forever, daemon=True).start()
         cls.base = f"http://127.0.0.1:{cls.serveur.server_port}/v1beta"
@@ -74,18 +80,21 @@ class TestAgent(unittest.TestCase):
 
     def test_boucle_complete_avec_outils(self):
         FauxGemini.scenario = [
-            appel_outil("etat_des_detroits", signature="sig-123"),
+            appel_outil("indicateurs_cles", signature="sig-123"),
             appel_outil("chercher_litterature", {"theme": "actions précaution"}),
             texte(TEXTE_FINAL),
         ]
         analyse = agent.produire_analyse(self.data, cle="cle-test", modeles=["modele-test"], base=self.base)
         self.assertEqual(analyse["mode"], "ia")
         self.assertEqual(analyse["modele"], "modele-test")
-        self.assertEqual(analyse["outils_appeles"], ["etat_des_detroits", "chercher_litterature"])
-        self.assertTrue(analyse["controle"]["sections_ok"])
-        self.assertEqual(analyse["controle"]["citations_inconnues"], [])
-        self.assertIn("## Sources", analyse["markdown"])
-        self.assertIn("International Economic Review", analyse["markdown"])
+        self.assertEqual(analyse["outils_appeles"], ["indicateurs_cles", "chercher_litterature"])
+        self.assertEqual(analyse["titre"], SELECTION["titre"])
+        # identifiant inventé écarté, citation inventée retirée mais indicateur gardé
+        self.assertEqual([s["id"] for s in analyse["selection"]], ["detroit:chokepoint4", "marche:brent", "marche:vix", "detroit:chokepoint7"])
+        self.assertEqual(analyse["controle"]["ids_inconnus"], ["marche:inexistant"])
+        self.assertEqual(analyse["controle"]["citations_inconnues"], ["Dupont, 2021"])
+        self.assertIsNone(analyse["selection"][3]["reference"])
+        self.assertTrue(any("International Economic Review" in r for r in analyse["references"]))
 
         premiere, deuxieme = FauxGemini.requetes[0], FauxGemini.requetes[1]
         self.assertEqual(premiere["chemin"], "/v1beta/models/modele-test:generateContent")
@@ -96,8 +105,8 @@ class TestAgent(unittest.TestCase):
         contenus = deuxieme["corps"]["contents"]
         self.assertEqual(contenus[1]["parts"][0]["thoughtSignature"], "sig-123")
         reponse_outil = contenus[2]["parts"][0]["functionResponse"]
-        self.assertEqual(reponse_outil["name"], "etat_des_detroits")
-        self.assertIn("detroits", reponse_outil["response"]["resultat"])
+        self.assertEqual(reponse_outil["name"], "indicateurs_cles")
+        self.assertIn("indicateurs", reponse_outil["response"]["resultat"])
 
     def test_repli_sur_les_regles_si_la_cle_est_refusee(self):
         FauxGemini.scenario = [(403, {"error": {"message": "cle invalide"}})]
@@ -105,7 +114,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(analyse["mode"], "regles")
         self.assertIn("403", analyse["erreur_ia"])
         self.assertEqual(len(FauxGemini.requetes), 1)  # inutile d'essayer un autre modèle
-        self.assertTrue(analyse["controle"]["sections_ok"])
+        self.assertGreaterEqual(len(analyse["selection"]), 3)
 
     def test_surcharge_passagere_on_reessaie(self):
         FauxGemini.scenario = [(503, {"error": {"message": "high demand"}}), texte(TEXTE_FINAL)]
@@ -127,34 +136,62 @@ class TestAgent(unittest.TestCase):
         analyse = agent.produire_analyse(self.data, cle="cle-test", modeles=["ancien", "nouveau"], base=self.base)
         self.assertEqual(analyse["modele"], "nouveau")
 
-    def test_sans_cle_rapport_par_regles(self):
+    def test_reponse_inutilisable_on_se_replie(self):
+        FauxGemini.scenario = [texte("Désolé, je ne peux pas répondre.")]
+        analyse = agent.produire_analyse(self.data, cle="cle-test", modeles=["modele-test"], base=self.base)
+        self.assertEqual(analyse["mode"], "regles")
+        self.assertIn("JSON", analyse["erreur_ia"])
+
+    def test_sans_cle_selection_par_regles(self):
         analyse = agent.produire_analyse(self.data, cle="")
         self.assertEqual(analyse["mode"], "regles")
-        self.assertTrue(analyse["controle"]["sections_ok"])
-        self.assertEqual(analyse["controle"]["citations_inconnues"], [])
+        self.assertEqual(analyse["format"], agent.FORMAT)
+        connus = {i["id"] for i in json.loads((self.data / "kpis.json").read_text())["indicateurs"]}
+        self.assertTrue(3 <= len(analyse["selection"]) <= 6)
+        self.assertTrue(all(s["id"] in connus for s in analyse["selection"]))
+        self.assertIn("marche:brent", [s["id"] for s in analyse["selection"]])
 
 
-class TestControles(unittest.TestCase):
-    def test_citation_inventee_reperee(self):
-        md = TEXTE_FINAL + "\nUn auteur imaginaire l'affirme (Dupont, 2021)."
-        controle = agent.controler(md)
-        self.assertEqual(controle["citations_inconnues"], ["Dupont, 2021"])
-        self.assertIn("kilian_park2009", controle["articles_cites"])
+class TestValidation(unittest.TestCase):
+    INDICATEURS = [{"id": f"marche:{n}"} for n in ("brent", "wti", "vix", "or")]
 
-    def test_sections_manquantes(self):
-        self.assertFalse(agent.controler("## Introduction\nTexte")["sections_ok"])
+    def test_extraire_json_entoure_de_texte(self):
+        self.assertEqual(agent.extraire_json('blabla ```json {"titre": "x"} ``` fin'), {"titre": "x"})
+        with self.assertRaises(agent.ErreurAgent):
+            agent.extraire_json("pas de json")
+
+    def test_textes_raccourcis_et_doublons_retires(self):
+        long = " ".join(["mot"] * 40)
+        reponse = {"titre": long, "indicateurs": [{"id": "marche:brent", "pourquoi": long}, {"id": "marche:brent"},
+                   {"id": "marche:wti"}, {"id": "marche:vix", "pourquoi": "Hausse de 30 %"}], "a_surveiller": [long] * 5}
+        resultat, controle = agent.valider(reponse, self.INDICATEURS)
+        self.assertEqual(len(resultat["selection"]), 3)
+        self.assertLessEqual(len(resultat["titre"].split()), 13)
+        self.assertLessEqual(len(resultat["selection"][0]["pourquoi"].split()), 21)
+        self.assertEqual(len(resultat["a_surveiller"]), 3)
+        self.assertEqual(controle["explications_avec_chiffres"], 1)
+
+    def test_trop_peu_d_indicateurs_valides(self):
+        with self.assertRaises(agent.ErreurAgent):
+            agent.valider({"indicateurs": [{"id": "marche:brent"}, {"id": "faux"}]}, self.INDICATEURS)
 
 
 class TestOutils(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
-        demo.generer(Path(cls.tmp.name))
+        preparer(Path(cls.tmp.name))
         cls.outils = Outils(Path(cls.tmp.name))
 
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
+
+    def test_indicateurs_cles(self):
+        r = self.outils.indicateurs_cles()
+        scores = [i["score"] for i in r["indicateurs"]]
+        self.assertEqual(scores, sorted(scores, reverse=True))
+        self.assertIn("variations", r["indicateurs"][0])
 
     def test_detroits(self):
         r = self.outils.etat_des_detroits()

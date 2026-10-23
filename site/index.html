@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vigie pétrole</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Carte des pétroliers dans le monde, passages dans les détroits et analyse quotidienne des risques pour les marchés.">
+<meta name="description" content="Carte des pétroliers dans le monde, passages dans les détroits et indicateurs clés pour les marchés.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -55,17 +55,31 @@ h2.titre { margin: 0; font: 600 12px/1.2 var(--display); letter-spacing: .18em; 
 .bloc-tete { display: grid; gap: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--filet); margin-bottom: 4px; }
 .meta { margin: 0; font: 400 12px/1.45 var(--chiffres); color: var(--gris); }
 
-.prose { font-size: 15px; line-height: 1.62; color: #dedede; max-width: 68ch; }
-.prose h2 { margin: 26px 0 8px; font: 600 17px/1.25 var(--display); letter-spacing: .01em; color: var(--blanc); text-wrap: balance; }
-.prose h2:first-child { margin-top: 14px; }
-.prose h3 { margin: 18px 0 6px; font: 600 14px/1.3 var(--display); color: var(--blanc); }
-.prose p { margin: 0 0 10px; }
-.prose ul, .prose ol { margin: 0 0 12px; padding-left: 18px; }
-.prose li { margin-bottom: 6px; }
-.prose li::marker { color: var(--gris); }
-.prose strong { color: var(--blanc); font-weight: 600; }
-.prose a { color: var(--blanc); text-underline-offset: 3px; }
-.prose code { font-family: var(--chiffres); font-size: 13px; }
+.titre-jour { margin: 12px 0 14px; font: 600 21px/1.2 var(--display); letter-spacing: .005em; color: var(--blanc); text-wrap: balance; }
+.kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.kpi { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 12px 12px 11px; background: var(--surface); border: 1px solid var(--filet); border-radius: 3px; }
+.kpi[data-lat] { cursor: pointer; }
+.kpi[data-lat]:hover { border-color: var(--cote); }
+.kpi:focus-visible { outline: 1px solid var(--blanc); outline-offset: 2px; }
+.kpi--fort { border-color: var(--gris); }
+.kpi-cat { font: 500 10.5px/1.2 var(--chiffres); letter-spacing: .08em; text-transform: uppercase; color: var(--gris); }
+.kpi-titre { font: 600 14px/1.25 var(--display); color: var(--blanc); overflow-wrap: anywhere; }
+.kpi-valeur { margin-top: 2px; font: 500 22px/1.1 var(--chiffres); color: var(--blanc); font-variant-numeric: tabular-nums; }
+.kpi-unite { font: 400 11px/1.3 var(--texte); color: var(--gris); }
+.kpi-var { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 3px; }
+.kpi-var .pastille { min-width: 0; }
+.kpi-var2 { font: 400 11.5px/1.3 var(--chiffres); color: var(--gris); }
+.kpi-etat { align-self: flex-start; padding: 1px 6px; font: 500 11px/1.35 var(--texte); color: var(--fond); background: var(--blanc); border-radius: 2px; }
+.kpi-pourquoi { margin-top: 4px; font: 400 12.5px/1.4 var(--texte); color: #d8d8d8; }
+.kpi-ref { font: 400 11px/1.3 var(--chiffres); color: var(--gris); }
+.surveiller { margin-top: 16px; }
+.surveiller-titre { margin: 0 0 6px; font: 600 11px/1.2 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--gris); }
+.surveiller ul { margin: 0; padding-left: 16px; font-size: 13.5px; line-height: 1.5; color: #dcdcdc; }
+.surveiller li { margin-bottom: 3px; }
+.surveiller li::marker { color: var(--gris); }
+.references summary { padding: 6px 0 0; font: 400 12px/1.4 var(--chiffres); color: var(--gris); }
+.references ol { margin: 6px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.5; color: var(--gris); }
+@media (max-width: 359px) { .kpis { grid-template-columns: 1fr; } }
 .controle { margin: 14px 0 0; padding-top: 10px; border-top: 1px dashed var(--filet); font: 400 12px/1.5 var(--chiffres); color: var(--gris); }
 .controle.alerte { color: var(--blanc); }
 
@@ -127,7 +141,7 @@ summary:hover { color: var(--clair); }
 @media (max-width: 999px) {
   html, body { height: auto; }
   .app { display: block; height: auto; }
-  .carte-zone { height: 62vh; height: 62svh; min-height: 340px; }
+  .carte-zone { height: 50vh; height: 50svh; min-height: 300px; }
   .panneau { border-left: 0; border-top: 1px solid var(--filet); overflow: visible; }
   .panneau-interieur { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   .legende { bottom: 22px; font-size: 11px; gap: 4px 10px; }
@@ -154,13 +168,22 @@ summary:hover { color: var(--clair); }
 
   <aside class="panneau">
     <div class="panneau-interieur">
-      <section id="analyse" aria-labelledby="t-analyse">
+      <section id="essentiel" aria-labelledby="t-essentiel">
         <div class="bloc-tete">
-          <h2 class="titre" id="t-analyse">Analyse du jour</h2>
-          <p class="meta" id="analyse-meta">Chargement…</p>
+          <h2 class="titre" id="t-essentiel">L'essentiel</h2>
+          <p class="meta" id="essentiel-meta">Chargement…</p>
         </div>
-        <div class="prose" id="analyse-texte"></div>
-        <p class="controle" id="analyse-controle" hidden></p>
+        <p class="titre-jour" id="titre-jour"></p>
+        <div class="kpis" id="kpis"></div>
+        <div class="surveiller" id="surveiller" hidden>
+          <p class="surveiller-titre">À surveiller</p>
+          <ul id="liste-surveiller"></ul>
+        </div>
+        <p class="controle" id="essentiel-controle" hidden></p>
+        <details class="references" id="references" hidden>
+          <summary>Articles cités</summary>
+          <ol id="liste-references"></ol>
+        </details>
       </section>
 
       <section id="detroits" aria-labelledby="t-detroits">
@@ -196,7 +219,7 @@ summary:hover { color: var(--clair); }
         <div class="bloc-tete"><h2 class="titre">Sources et limites</h2></div>
         <p>Positions : flux AIS gratuit d'<a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>, surtout côtier ; la haute mer est mal couverte et un navire qui coupe son AIS disparaît. Types AIS 80 à 89 : tous les navires-citernes (brut, produits, chimie, gaz).</p>
         <p>Détroits : <a href="https://portwatch.imf.org" target="_blank" rel="noopener">IMF PortWatch</a>, publié chaque semaine avec quelques jours de décalage. Marchés : Yahoo Finance, FRED, EIA. Fond de carte : Natural Earth.</p>
-        <p>L'analyse est rédigée une fois par jour par un modèle de langage qui ne voit que ces données et une bibliothèque d'articles scientifiques. Ce n'est pas un conseil d'investissement.</p>
+        <p>Les chiffres sont calculés par le programme. Toutes les 6 heures, un modèle de langage choisit les indicateurs les plus importants et écrit une ligne pour chacun. Ce n'est pas un conseil d'investissement.</p>
         <p id="etat-collecte"></p>
       </footer>
     </div>
@@ -204,8 +227,6 @@ summary:hover { color: var(--clair); }
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 <script>
 (function () {
   "use strict";
@@ -556,29 +577,93 @@ summary:hover { color: var(--clair); }
     }
   }
 
-  // ---------- Analyse ----------
-  function afficherAnalyse(a) {
-    var cible = document.getElementById("analyse-texte");
-    var md = a.markdown || "";
-    var html = window.marked ? marked.parse(md) : "<pre>" + echapper(md) + "</pre>";
-    cible.innerHTML = window.DOMPurify ? DOMPurify.sanitize(html) : html;
-    cible.querySelectorAll("a").forEach(function (lien) { lien.target = "_blank"; lien.rel = "noopener"; });
-    var dates = a.dates_des_donnees || {};
-    var auteur = a.mode === "ia" ? "Rédigée par " + a.modele : "Rapport automatique, règles fixes";
-    document.getElementById("analyse-meta").textContent = auteur + " · " + dateCourte(a.genere_le) + ", " + heureUTC(a.genere_le) +
-      (dates.portwatch ? " · PortWatch au " + dateCourte(dates.portwatch) : "");
-    var c = a.controle || {}, ctrl = document.getElementById("analyse-controle");
-    ctrl.hidden = false;
-    var morceaux = [];
-    morceaux.push(c.sections_ok ? "5 sections présentes" : "structure incomplète");
-    morceaux.push((c.articles_cites || []).length + " références vérifiées dans la bibliothèque");
-    if ((a.outils_appeles || []).length) morceaux.push(a.outils_appeles.length + " appels d'outils");
-    var texte = "Contrôle automatique : " + morceaux.join(" · ");
-    if ((c.citations_inconnues || []).length) {
-      texte += ". Citations absentes de la bibliothèque, à vérifier : " + c.citations_inconnues.join(" ; ");
-      ctrl.classList.add("alerte");
+  // ---------- L'essentiel : cartes d'indicateurs ----------
+  function formaterValeur(k) {
+    var v = k.valeur;
+    if (k.categorie === "Zone AIS") return nombre(v, 0);
+    if (k.categorie === "Détroit" || k.categorie === "Stocks") return nombre(v, 1);
+    if (k.unite === "%") return nombre(v, 2);
+    return nombre(v, Math.abs(v) >= 1000 ? 0 : Math.abs(v) < 10 ? 3 : 2);
+  }
+  function formaterVariation(x) {
+    if (!x || x.valeur == null) return null;
+    if (x.unite === "pb") return signe(x.valeur, 0, " pb");
+    if (x.unite === "$") return signe(x.valeur, 2, " $");
+    if (x.unite === "M") return signe(x.valeur, 1, " M");
+    return signe(x.valeur, Math.abs(x.valeur) >= 100 ? 0 : 1, " %");
+  }
+  function carteIndicateur(k, choix) {
+    var principale = k.variations[k.principale] || {};
+    var autres = k.variations.filter(function (_, i) { return i !== k.principale; })
+      .map(function (x) { var t = formaterVariation(x); return t ? t + " sur " + x.libelle : null; })
+      .filter(Boolean);
+    var fort = k.score >= 1.5, notable = k.score >= 0.8;
+    var attributs = k.carte ? ' data-lat="' + k.carte[0] + '" data-lon="' + k.carte[1] + '" tabindex="0" role="button"' : "";
+    var date = k.categorie === "Détroit" ? " · au " + dateCourte(k.date) : "";
+    var html = '<article class="kpi' + (fort ? " kpi--fort" : "") + '"' + attributs + ">";
+    html += '<span class="kpi-cat">' + echapper(k.categorie + date) + "</span>";
+    html += '<span class="kpi-titre">' + echapper(k.titre) + "</span>";
+    html += '<span class="kpi-valeur">' + formaterValeur(k) + "</span>";
+    html += '<span class="kpi-unite">' + echapper(k.unite) + "</span>";
+    var varPrincipale = formaterVariation(principale);
+    if (varPrincipale) {
+      html += '<span class="kpi-var"><span class="' + (fort ? "pastille pastille--fort" : notable ? "pastille pastille--ecart" : "pastille") + '">' +
+        varPrincipale + " · " + echapper(principale.libelle) + "</span>" +
+        (autres.length ? '<span class="kpi-var2">' + echapper(autres.join(" · ")) + "</span>" : "") + "</span>";
     }
-    ctrl.textContent = texte;
+    if (k.etat) html += '<span class="kpi-etat">' + echapper(k.etat.charAt(0).toUpperCase() + k.etat.slice(1)) + "</span>";
+    if (choix && choix.pourquoi) html += '<span class="kpi-pourquoi">' + echapper(choix.pourquoi) + "</span>";
+    if (choix && choix.reference) html += '<span class="kpi-ref">' + echapper(choix.reference) + "</span>";
+    return html + "</article>";
+  }
+  function afficherEssentiel(pool, analyse) {
+    var indicateurs = (pool && pool.indicateurs) || [];
+    var parId = {};
+    indicateurs.forEach(function (k) { parId[k.id] = k; });
+    var selection = analyse && analyse.selection ? analyse.selection.filter(function (c) { return parId[c.id]; }) : [];
+    if (!selection.length) selection = indicateurs.slice(0, 6).map(function (k) { return { id: k.id }; });
+    var conteneur = document.getElementById("kpis");
+    if (!selection.length) { conteneur.innerHTML = '<p class="vide">Indicateurs pas encore calculés.</p>'; return; }
+    conteneur.innerHTML = selection.map(function (choix) { return carteIndicateur(parId[choix.id], choix); }).join("");
+    conteneur.querySelectorAll(".kpi[data-lat]").forEach(function (carteKpi) {
+      function voir() {
+        carte.flyTo([+carteKpi.dataset.lat, +carteKpi.dataset.lon], 5, { animate: !mouvementReduit, duration: 1.2 });
+        if (window.innerWidth < 1000) document.querySelector(".carte-zone").scrollIntoView({ behavior: mouvementReduit ? "auto" : "smooth" });
+      }
+      carteKpi.addEventListener("click", voir);
+      carteKpi.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); voir(); } });
+    });
+
+    var meta = document.getElementById("essentiel-meta");
+    var mise = pool && pool.genere_le ? "valeurs de " + heureUTC(pool.genere_le) : "";
+    if (analyse && analyse.genere_le) {
+      var auteur = analyse.mode === "ia" ? "Choix et commentaires : " + analyse.modele : "Sélection automatique (règles fixes)";
+      meta.textContent = auteur + ", " + ilYa(analyse.genere_le) + (mise ? " · " + mise : "");
+      document.getElementById("titre-jour").textContent = analyse.titre || "";
+    } else {
+      meta.textContent = "Indicateurs les plus marqués" + (mise ? " · " + mise : "");
+    }
+    var aSurveiller = (analyse && analyse.a_surveiller) || [];
+    if (aSurveiller.length) {
+      document.getElementById("surveiller").hidden = false;
+      document.getElementById("liste-surveiller").innerHTML = aSurveiller.map(function (t) { return "<li>" + echapper(t) + "</li>"; }).join("");
+    }
+    var c = (analyse && analyse.controle) || null;
+    if (c) {
+      var ctrl = document.getElementById("essentiel-controle");
+      var texte = "Contrôle automatique : " + (c.indicateurs_valides || selection.length) + " indicateurs vérifiés, chiffres calculés par le programme";
+      var alertes = [];
+      if ((c.ids_inconnus || []).length) alertes.push(c.ids_inconnus.length + " indicateur(s) inventé(s) écarté(s)");
+      if ((c.citations_inconnues || []).length) alertes.push("citation(s) hors bibliothèque retirée(s) : " + c.citations_inconnues.join(" ; "));
+      if (alertes.length) { texte += ". " + alertes.join(" · "); ctrl.classList.add("alerte"); }
+      ctrl.textContent = texte;
+      ctrl.hidden = false;
+    }
+    var refs = (analyse && analyse.references) || [];
+    if (refs.length) {
+      document.getElementById("references").hidden = false;
+      document.getElementById("liste-references").innerHTML = refs.map(function (r) { return "<li>" + echapper(r) + "</li>"; }).join("");
+    }
   }
 
   // ---------- Chargement ----------
@@ -609,9 +694,10 @@ summary:hover { color: var(--clair); }
   charger("data/chokepoints.json").then(afficherDetroits).catch(function () { erreur("liste-detroits", "Données PortWatch indisponibles."); });
   charger("data/zones.json").then(afficherZones).catch(function () { erreur("liste-zones", "Pas encore de positions collectées."); });
   charger("data/markets.json").then(afficherMarches).catch(function () { erreur("liste-marches", "Cours indisponibles pour le moment."); });
-  charger("data/analysis.json").then(afficherAnalyse).catch(function () {
-    document.getElementById("analyse-meta").textContent = "Analyse pas encore générée.";
-  });
+  Promise.all([
+    charger("data/kpis.json").catch(function () { return null; }),
+    charger("data/analysis.json").catch(function () { return null; })
+  ]).then(function (r) { afficherEssentiel(r[0], r[1]); });
   majPorts();
 })();
 </script>
