@@ -28,5 +28,5 @@ jobs:
       - name: Mesurer la couverture par région
         env:
           AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
-          DIAGNOSTIC_SECONDES: "60"
+          DIAGNOSTIC_SECONDES: "45"
         run: python -m pipeline.diagnostic

@@ -71,7 +71,7 @@ async def mesurer(cle: str, boite, secondes: float) -> dict:
 
 def main() -> None:
     cle = os.environ["AISSTREAM_API_KEY"].strip()
-    secondes = float(os.environ.get("DIAGNOSTIC_SECONDES", "60"))
+    secondes = float(os.environ.get("DIAGNOSTIC_SECONDES", "45"))
     lignes = ["| Région | msg/s | navires (positions) | navires (statiques) | citernes | dont largeur < 14 m |", "|---|---|---|---|---|---|"]
     accuses = []
     for nom, boite in REGIONS:
@@ -79,8 +79,13 @@ def main() -> None:
             r = asyncio.run(mesurer(cle, boite, secondes))
             lignes.append(f"| {nom} | {r['messages_par_s']} | {r['navires_positions']} | {r['navires_statiques']} | {r['citernes']} | {r['citernes_largeur_moins_14m']} |")
             accuses.append(f"- {nom} : extensions {r['compression_negociee']}, accusé {json.dumps(r['accuse'], ensure_ascii=False)}")
+            # Annotation GitHub : visible sur la page publique du passage, sans connexion
+            print(f"::notice title=AIS {nom}::{r['messages_par_s']} msg/s, {r['navires_positions']} navires (positions), "
+                  f"{r['navires_statiques']} (statiques), {r['citernes']} citernes dont {r['citernes_largeur_moins_14m']} < 14 m de large, "
+                  f"compression {r['compression_negociee']}, accusé {json.dumps(r['accuse'], ensure_ascii=False)[:200]}", flush=True)
         except Exception as exc:
             lignes.append(f"| {nom} | erreur : {type(exc).__name__} {exc} | | | | |")
+            print(f"::warning title=AIS {nom}::erreur {type(exc).__name__} {exc}", flush=True)
         time.sleep(2)
     texte = f"## Couverture aisstream ({secondes:.0f} s par région)\n\n" + "\n".join(lignes) + "\n\n" + "\n".join(accuses) + "\n"
     print(texte)
