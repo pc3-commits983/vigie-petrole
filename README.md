@@ -105,7 +105,9 @@ Le modèle répond en JSON : un titre, les identifiants des indicateurs choisis,
 
 ## Limites à connaître
 
-- Le flux AIS gratuit repose surtout sur des antennes côtières : la haute mer est mal couverte, et un navire qui coupe son AIS disparaît.
+- Le flux AIS gratuit repose sur des antennes côtières, surtout en Europe et en Amérique du Nord. Mesure du 23 octobre 2026 : 0 navire reçu dans le Golfe en 45 secondes, 15 à Malacca, 1 307 en mer du Nord. Ces zones sont marquées « non couvert » ; les passages dans les détroits (PortWatch, satellite) y sont la mesure fiable. La carte montre environ un millier de pétroliers de mer, sur un peu plus de 10 000 dans le monde.
+- Les barges-citernes fluviales (Rhin, Escaut) déclarent le même type AIS que les pétroliers : elles sont écartées (moins de 14 m de large).
+- PortWatch ne compte que les navires qui gardent leur AIS. À Ormuz, il voyait moins d'un pétrolier par jour quand Lloyd's List en relevait environ 15 fin septembre 2026 : une chute extrême porte donc une note.
 - Les types AIS 80 à 89 regroupent tous les navires-citernes : pétrole brut, produits raffinés, chimie et gaz.
 - PortWatch publie chaque semaine avec quelques jours de décalage.
 - aisstream est encore en bêta et peut être instable ; le collecteur se reconnecte automatiquement.
@@ -142,7 +144,7 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-51 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), calcul des indicateurs (dont la détection d'une reprise de trafic), validation de la sélection de l'agent, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
+52 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), calcul des indicateurs (dont la détection d'une reprise de trafic), validation de la sélection de l'agent, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
 
 ## Structure
 
