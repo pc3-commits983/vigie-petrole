@@ -56,6 +56,18 @@ class TestMarches(unittest.TestCase):
         self.assertEqual(brent["score"], round(12 / 8 * 1.2, 2))
 
 
+class TestZones(unittest.TestCase):
+    def test_zone_non_couverte_ignoree(self):
+        donnees = {
+            "zones": [{"id": "golfe_persique", "nom": "Golfe persique", "bbox": [23.5, 47.5, 30.6, 56.3]},
+                      {"id": "mer_du_nord", "nom": "Mer du Nord", "bbox": [48.5, -6, 62, 9.5]}],
+            "historique": [{"t": "2026-10-23T00:00:00Z", "n": 60, "z": {"golfe_persique": [20, 5], "mer_du_nord": [40, 20]},
+                            "c": {"golfe_persique": 3, "mer_du_nord": 900}}],
+        }
+        ids = [i["id"] for i in kpi.indicateurs_zones(donnees)]
+        self.assertEqual(ids, ["zone:mer_du_nord"])
+
+
 class TestConstruction(unittest.TestCase):
     def test_sur_les_donnees_de_demo(self):
         with tempfile.TemporaryDirectory() as tmp:

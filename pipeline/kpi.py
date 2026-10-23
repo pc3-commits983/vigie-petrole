@@ -139,6 +139,10 @@ def indicateur_ecart_brent_wti(donnees: dict) -> list[dict]:
     }]
 
 
+# Nombre minimal de navires (tous types) reçus dans une zone pour la considérer comme couverte
+SEUIL_COUVERTURE = 30
+
+
 def indicateurs_zones(donnees: dict) -> list[dict]:
     historique = donnees.get("historique", [])
     if not historique:
@@ -149,9 +153,10 @@ def indicateurs_zones(donnees: dict) -> list[dict]:
     cible = lire_iso(t) - timedelta(days=7)
     proches = [h for h in historique[:-1] if abs((lire_iso(h["t"]) - cible).total_seconds()) <= 6 * 3600]
     il_y_a_7j = min(proches, key=lambda h: abs((lire_iso(h["t"]) - cible).total_seconds())) if proches else None
+    couverture = dernier.get("c") or {}
     resultat = []
     for ident, (total, arret) in dernier["z"].items():
-        if total < 15:
+        if total < 15 or (couverture and couverture.get(ident, 0) < SEUIL_COUVERTURE):
             continue
         avant_total, avant_arret = (il_y_a_7j["z"].get(ident) or [None, None]) if il_y_a_7j else (None, None)
         variation = ecart_pct(total, avant_total)

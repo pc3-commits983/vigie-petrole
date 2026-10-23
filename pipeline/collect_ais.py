@@ -279,16 +279,25 @@ def dans_zone(lat: float, lon: float, bbox) -> bool:
     return lat_min <= lat <= lat_max and lon_min <= lon <= lon_max
 
 
-def compter_zones(petroliers: list[dict], instant: datetime, fraicheur_h: float = 6) -> dict:
-    """Nombre de pétroliers vus récemment par zone, et combien sont à l'arrêt (< 0,5 nœud)."""
+def compter_zones(petroliers: list[dict], instant: datetime, fraicheur_h: float = 6, positions: dict | None = None) -> dict:
+    """Nombre de pétroliers vus récemment par zone, et combien sont à l'arrêt (< 0,5 nœud).
+
+    `positions` (tous les navires reçus pendant le passage, tous types confondus) sert à mesurer la
+    couverture : une zone où le réseau ne reçoit presque aucun navire n'est pas une zone vide.
+    """
     limite = instant - timedelta(hours=fraicheur_h)
     recents = [p for p in petroliers if (lire_iso(p.get("vu")) or instant) >= limite]
-    zones = {}
+    zones, couverture = {}, {}
     for zone in config.ZONES:
         dedans = [p for p in recents if dans_zone(p["lat"], p["lon"], zone["bbox"])]
         a_l_arret = sum(1 for p in dedans if p.get("vitesse") is not None and p["vitesse"] < 0.5)
         zones[zone["id"]] = [len(dedans), a_l_arret]
-    return {"t": iso(instant), "n": len(recents), "z": zones}
+        if positions is not None:
+            couverture[zone["id"]] = sum(1 for p in positions.values() if dans_zone(p["lat"], p["lon"], zone["bbox"]))
+    point = {"t": iso(instant), "n": len(recents), "z": zones}
+    if positions is not None:
+        point["c"] = couverture
+    return point
 
 
 def ajouter_historique(historique: list[dict], point: dict, instant: datetime) -> list[dict]:
@@ -319,7 +328,9 @@ def mettre_a_jour(data_dir: Path, collecteur: Collecteur, minutes: float, instan
     ecrire_json(data_dir / config.FICHIERS["registre"], registre)
 
     zones = lire_json(data_dir / config.FICHIERS["zones"], {}) or {}
-    historique = ajouter_historique(zones.get("historique", []), compter_zones(petroliers, instant), instant)
+    historique = ajouter_historique(
+        zones.get("historique", []), compter_zones(petroliers, instant, positions=collecteur.positions), instant
+    )
     ecrire_json(
         data_dir / config.FICHIERS["zones"],
         {"zones": [{"id": z["id"], "nom": z["nom"], "bbox": z["bbox"]} for z in config.ZONES], "historique": historique},

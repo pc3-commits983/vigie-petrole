@@ -124,6 +124,12 @@ class TestFusionEtZones(unittest.TestCase):
         self.assertEqual(point["z"]["golfe_persique"], [2, 1])
         self.assertEqual(point["n"], 2)
 
+    def test_couverture_par_zone(self):
+        positions = {str(i): {"lat": 54.0, "lon": 3.0} for i in range(40)}  # mer du Nord bien reçue
+        point = compter_zones([], INSTANT, positions=positions)
+        self.assertEqual(point["c"]["mer_du_nord"], 40)
+        self.assertEqual(point["c"]["golfe_persique"], 0)
+
     def test_mise_a_jour_ecrit_les_fichiers(self):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)

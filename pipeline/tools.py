@@ -112,8 +112,12 @@ class Outils:
 
         il_y_a_1j, il_y_a_7j = proche(24), proche(24 * 7)
         noms = {z["id"]: z["nom"] for z in zones.get("zones", [])}
-        lignes = []
+        couverture = dernier.get("c") or {}
+        lignes, non_couvertes = [], []
         for ident, (total, arret) in dernier["z"].items():
+            if couverture and couverture.get(ident, 0) < 30:
+                non_couvertes.append(noms.get(ident, ident))
+                continue
             ligne = {
                 "zone": noms.get(ident, ident),
                 "petroliers": total,
@@ -131,6 +135,8 @@ class Outils:
             "instant": dernier["t"],
             "petroliers_vus_6h_monde": dernier.get("n"),
             "avertissement": "Comptage d'un échantillon : les navires hors de portée des antennes ou qui coupent leur AIS n'apparaissent pas.",
+            "zones_non_couvertes": non_couvertes,
+            "note_couverture": "Le réseau gratuit ne reçoit presque rien dans ces zones : un zéro n'y signifie pas l'absence de pétroliers.",
             "zones": lignes,
         }
 

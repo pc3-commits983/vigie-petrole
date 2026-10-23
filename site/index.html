@@ -217,7 +217,7 @@ summary:hover { color: var(--clair); }
 
       <footer class="pied" aria-label="Sources">
         <div class="bloc-tete"><h2 class="titre">Sources et limites</h2></div>
-        <p>Positions : flux AIS gratuit d'<a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>, surtout côtier ; la haute mer est mal couverte et un navire qui coupe son AIS disparaît. Types AIS 80 à 89 : tous les navires-citernes (brut, produits, chimie, gaz).</p>
+        <p>Positions : flux AIS gratuit d'<a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>, dont les antennes sont surtout en Europe et en Amérique du Nord. Le Golfe, la mer Rouge et l'Asie ne sont presque pas couverts : là-bas, les passages dans les détroits (PortWatch, par satellite) sont la mesure fiable. Seuls les navires-citernes de mer sont affichés (au moins 14 m de large), pas les barges fluviales.</p>
         <p>Détroits : <a href="https://portwatch.imf.org" target="_blank" rel="noopener">IMF PortWatch</a>, publié chaque semaine avec quelques jours de décalage. Marchés : Yahoo Finance, FRED, EIA. Fond de carte : Natural Earth.</p>
         <p>Les chiffres sont calculés par le programme. Toutes les 6 heures, un modèle de langage choisit les indicateurs les plus importants et écrit une ligne pour chacun. Ce n'est pas un conseil d'investissement.</p>
         <p id="etat-collecte"></p>
@@ -525,16 +525,23 @@ summary:hover { color: var(--clair); }
     if (!hist.length) { ol.appendChild(el("li", { class: "vide" }, "Pas encore de positions collectées.")); return; }
     var dernier = hist[hist.length - 1], noms = {}, bboxes = {};
     (donnees.zones || []).forEach(function (z) { noms[z.id] = z.nom; bboxes[z.id] = z.bbox; });
-    var lignes = Object.keys(dernier.z).map(function (id) { return { id: id, total: dernier.z[id][0], arret: dernier.z[id][1] }; })
-      .sort(function (a, b) { return b.total - a.total; });
+    var couverture = dernier.c || null;
+    var lignes = Object.keys(dernier.z).map(function (id) {
+      return { id: id, total: dernier.z[id][0], arret: dernier.z[id][1], couvert: !couverture || (couverture[id] || 0) >= 30 };
+    }).sort(function (a, b) { return (b.couvert - a.couvert) || (b.total - a.total); });
     var maxi = Math.max.apply(null, lignes.map(function (l) { return l.total; }).concat([1]));
     lignes.forEach(function (l) {
       var li = el("li", { class: "ligne" });
       var btn = el("button", { class: "ligne-btn", type: "button", "aria-label": "Voir la zone " + (noms[l.id] || l.id) });
       var part = l.total ? Math.round((100 * l.arret) / l.total) : 0;
-      btn.innerHTML = '<span class="ligne-nom">' + echapper(noms[l.id] || l.id) + "<small>" + part + " % à l'arrêt</small></span>" +
-        '<span class="ligne-valeur">' + nombre(l.total, 0) + "</span><span></span>" +
-        '<span class="barre"><i style="width:' + ((100 * l.total) / maxi).toFixed(1) + '%"></i><b style="width:' + ((100 * l.arret) / maxi).toFixed(1) + '%"></b></span>';
+      if (!l.couvert) {
+        btn.innerHTML = '<span class="ligne-nom">' + echapper(noms[l.id] || l.id) + "<small>Non couvert par le réseau gratuit : voir les détroits</small></span>" +
+          '<span class="ligne-valeur"><small>n.d.</small></span><span></span>';
+      } else {
+        btn.innerHTML = '<span class="ligne-nom">' + echapper(noms[l.id] || l.id) + "<small>" + part + " % à l'arrêt</small></span>" +
+          '<span class="ligne-valeur">' + nombre(l.total, 0) + "</span><span></span>" +
+          '<span class="barre"><i style="width:' + ((100 * l.total) / maxi).toFixed(1) + '%"></i><b style="width:' + ((100 * l.arret) / maxi).toFixed(1) + '%"></b></span>';
+      }
       btn.addEventListener("click", function () {
         var b = bboxes[l.id];
         if (b) carte.flyToBounds([[b[0], b[1]], [b[2], b[3]]], { animate: !mouvementReduit, duration: 1.2 });
@@ -671,8 +678,8 @@ summary:hover { color: var(--clair); }
     var liste = d.petroliers || [];
     navires.definir(liste);
     var recents = liste.filter(function (n) { return Date.now() - new Date(n.vu).getTime() < 3 * 3600000; }).length;
-    document.getElementById("compteur").textContent = nombre(liste.length, 0) + " navires-citernes, dont " + nombre(recents, 0) +
-      " vus ces 3 dernières heures · relevé de " + heureUTC(d.genere_le) + " (" + ilYa(d.genere_le) + ")";
+    document.getElementById("compteur").textContent = nombre(liste.length, 0) + " pétroliers de mer repérés, dont " + nombre(recents, 0) +
+      " ces 3 dernières heures · réseau AIS gratuit, surtout Europe et Amériques · " + heureUTC(d.genere_le);
   }
   function afficherEtat(e) {
     if (e.demo) document.getElementById("bandeau-demo").hidden = false;
