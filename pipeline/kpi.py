@@ -71,6 +71,11 @@ def indicateurs_detroits(donnees: dict) -> list[dict]:
             poids *= 0.25
         etat = etat_detroit(p7, p7_prec, p365)
         bonus = 1.5 if etat in ("quasi à l'arrêt", "reprise") and d["id"] in DETROITS_MAJEURS else 0
+        # PortWatch ne compte que les navires qui émettent leur AIS. En zone de conflit, beaucoup le
+        # coupent : à Ormuz fin septembre 2026, Lloyd's List comptait environ 15 pétroliers et
+        # méthaniers par jour quand PortWatch en voyait moins d'un. Une chute extrême est donc à nuancer.
+        note = ("Les navires qui coupent leur AIS échappent au comptage : la baisse réelle peut être moindre."
+                if etat in ("quasi à l'arrêt", "ralenti") else None)
         resultat.append({
             "id": f"detroit:{d['id']}",
             "categorie": "Détroit",
@@ -80,6 +85,7 @@ def indicateurs_detroits(donnees: dict) -> list[dict]:
             "variations": variations,
             "principale": max(range(3), key=lambda i: normes[i]),
             "etat": etat,
+            "note": note,
             "score": round((max(normes) + bonus) * poids, 2),
             "date": fin.isoformat(),
             "source": "IMF PortWatch",

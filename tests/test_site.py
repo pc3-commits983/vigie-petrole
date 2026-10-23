@@ -37,10 +37,10 @@ class TestQuandRefaireLAnalyse(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)
             self.assertTrue(run.analyse_a_refaire(data, False, ""))  # aucune analyse encore
-            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "regles", "format": 2})
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "regles", "format": 3})
             self.assertTrue(run.analyse_a_refaire(data, False, "cle"))
             self.assertFalse(run.analyse_a_refaire(data, False, ""))
-            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "ia", "format": 2})
+            ecrire_json(data / "analysis.json", {"genere_le": iso(maintenant()), "mode": "ia", "format": 3})
             self.assertFalse(run.analyse_a_refaire(data, False, "cle"))
             self.assertTrue(run.analyse_a_refaire(data, True, "cle"))
 

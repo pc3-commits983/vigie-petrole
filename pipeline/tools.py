@@ -37,7 +37,7 @@ class Outils:
     # --- Indicateurs clés (calculés par pipeline/kpi.py) ------------------------------------
     def indicateurs_cles(self) -> dict:
         donnees = self._lire("indicateurs")
-        champs = ("id", "categorie", "titre", "valeur", "unite", "variations", "etat", "score", "date")
+        champs = ("id", "categorie", "titre", "valeur", "unite", "variations", "etat", "note", "score", "date")
         indicateurs = [{k: i.get(k) for k in champs} for i in donnees.get("indicateurs", [])]
         return {
             "lecture": "Trié par score d'importance décroissant (règles fixes). Variations en % sauf mention (pb = points de base).",

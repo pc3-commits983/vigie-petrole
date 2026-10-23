@@ -34,7 +34,7 @@ MODELES_PAR_DEFAUT = ["gemini-flash-latest", "gemini-flash-lite-latest"]
 STATUTS_PASSAGERS = {429, 500, 502, 503, 504}
 ATTENTES_SECONDES = (15, 45)
 ETAPES_MAX = 12
-FORMAT = 2
+FORMAT = 3  # change dès que les consignes ou les indicateurs changent : force une nouvelle sélection
 
 CONSIGNES = """Tu es l'analyste de « Vigie pétrole ». L'application affiche des cartes d'indicateurs chiffrés.
 Ton travail : choisir les indicateurs les plus importants aujourd'hui pour les marchés financiers dans leur
@@ -59,6 +59,8 @@ Règles :
 - reference : la forme de citation exacte d'un article renvoyé par chercher_litterature si l'explication
   s'appuie dessus, sinon null.
 - a_surveiller : 2 ou 3 signaux précis à guetter, 12 mots maximum chacun.
+- Si un indicateur porte une note, tiens-en compte : par exemple, une chute de passages vue par l'AIS peut
+  venir de navires qui coupent leur balise, ne la présente pas comme une fermeture certaine.
 - N'invente aucun fait, aucun événement, aucune cause : appuie-toi seulement sur les outils.
 - Aucune recommandation d'achat ou de vente."""
 

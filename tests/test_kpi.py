@@ -28,6 +28,7 @@ class TestDetroits(unittest.TestCase):
         ind = kpi.indicateurs_detroits(detroit([40] * 380 + [1] * 14))[0]
         self.assertEqual(ind["etat"], "quasi à l'arrêt")
         self.assertGreater(ind["score"], 3)
+        self.assertIn("AIS", ind["note"])
 
     def test_petit_detroit_peu_fiable(self):
         # 2 navires par jour en moyenne : une chute à zéro n'est pas un signal fiable
