@@ -30,6 +30,33 @@ class TestConstructionDuSite(unittest.TestCase):
             self.assertRegex(src, r"/\d+\.\d+\.\d+/")
 
 
+class TestApplication(unittest.TestCase):
+    def test_manifeste_et_icones(self):
+        manifeste = json.loads((config.SITE_SRC / "manifest.webmanifest").read_text(encoding="utf-8"))
+        self.assertEqual(manifeste["display"], "standalone")
+        self.assertEqual(manifeste["start_url"], "./")
+        objectifs = {i.get("purpose") for i in manifeste["icons"]}
+        self.assertIn("maskable", objectifs)
+        for icone in manifeste["icons"]:
+            self.assertTrue((config.SITE_SRC / icone["src"]).exists(), icone["src"])
+        tailles = {i["sizes"] for i in manifeste["icons"] if i["type"] == "image/png"}
+        self.assertTrue({"192x192", "512x512"} <= tailles)
+
+    def test_page_installable(self):
+        page = (config.SITE_SRC / "index.html").read_text(encoding="utf-8")
+        for attendu in ('rel="manifest"', 'rel="apple-touch-icon"', 'name="theme-color"', 'serviceWorker.register("sw.js")'):
+            self.assertIn(attendu, page)
+        self.assertTrue((config.SITE_SRC / "apple-touch-icon.png").exists())
+        sw = (config.SITE_SRC / "sw.js").read_text(encoding="utf-8")
+        for fichier in ("index.html", "geo/land.json", "icon-192.png"):
+            self.assertIn(fichier, sw)
+
+    def test_modes_d_affichage(self):
+        page = (config.SITE_SRC / "index.html").read_text(encoding="utf-8")
+        for m in ("carte", "infos", "details"):
+            self.assertIn(f'data-mode="{m}"', page)
+
+
 class TestQuandRefaireLAnalyse(unittest.TestCase):
     def test_retente_gemini_apres_un_rapport_par_regles(self):
         from pipeline.util import ecrire_json, iso, maintenant

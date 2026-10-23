@@ -6,17 +6,29 @@
 <title>Vigie pétrole</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Carte des pétroliers dans le monde, passages dans les détroits et indicateurs clés pour les marchés.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vigie">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>/* Leaflet 1.9.4 (BSD-2), feuille de style intégrée */.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane > svg,.leaflet-pane > canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0;}.leaflet-container{overflow:hidden;}.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none;}.leaflet-tile::selection{background:transparent;}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast;}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0;}.leaflet-marker-icon,.leaflet-marker-shadow{display:block;}.leaflet-container .leaflet-overlay-pane svg{max-width:none !important;max-height:none !important;}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer,.leaflet-container .leaflet-tile{max-width:none !important;max-height:none !important;width:auto;padding:0;}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter;}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y;}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom;}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none;}.leaflet-container{-webkit-tap-highlight-color:transparent;}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,0.4);}.leaflet-tile{filter:inherit;visibility:hidden;}.leaflet-tile-loaded{visibility:inherit;}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800;}.leaflet-overlay-pane svg{-moz-user-select:none;}.leaflet-pane{z-index:400;}.leaflet-tile-pane{z-index:200;}.leaflet-overlay-pane{z-index:400;}.leaflet-shadow-pane{z-index:500;}.leaflet-marker-pane{z-index:600;}.leaflet-tooltip-pane{z-index:650;}.leaflet-popup-pane{z-index:700;}.leaflet-map-pane canvas{z-index:100;}.leaflet-map-pane svg{z-index:200;}.leaflet-vml-shape{width:1px;height:1px;}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto;}.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none;}.leaflet-top{top:0;}.leaflet-right{right:0;}.leaflet-bottom{bottom:0;}.leaflet-left{left:0;}.leaflet-control{float:left;clear:both;}.leaflet-right .leaflet-control{float:right;}.leaflet-top .leaflet-control{margin-top:10px;}.leaflet-bottom .leaflet-control{margin-bottom:10px;}.leaflet-left .leaflet-control{margin-left:10px;}.leaflet-right .leaflet-control{margin-right:10px;}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity 0.2s linear;-moz-transition:opacity 0.2s linear;transition:opacity 0.2s linear;}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1;}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;}svg.leaflet-zoom-animated{will-change:transform;}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform 0.25s cubic-bezier(0,0,0.25,1);-moz-transition:-moz-transform 0.25s cubic-bezier(0,0,0.25,1);transition:transform 0.25s cubic-bezier(0,0,0.25,1);}.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none;}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden;}.leaflet-interactive{cursor:pointer;}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab;}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair;}.leaflet-popup-pane,.leaflet-control{cursor:auto;}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing;}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane > svg path,.leaflet-tile-container{pointer-events:none;}.leaflet-marker-icon.leaflet-interactive,.leaflet-image-layer.leaflet-interactive,.leaflet-pane > svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto;}.leaflet-container{background:#ddd;outline-offset:1px;}.leaflet-container a{color:#0078A8;}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,0.5);}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:0.75rem;line-height:1.5;}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,0.65);border-radius:4px;}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:black;}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block;}.leaflet-bar a:hover,.leaflet-bar a:focus{background-color:#f4f4f4;}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px;}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none;}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb;}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px;}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px;}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px;}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px;}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px;}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,0.4);background:#fff;border-radius:5px;}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px;}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none;}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative;}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff;}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px;}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px;}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em;}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px;}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,0.8);margin:0;}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4;}.leaflet-control-attribution a{text-decoration:none;}.leaflet-control-attribution a:hover,.leaflet-control-attribution a:focus{text-decoration:underline;}.leaflet-attribution-flag{display:inline !important;vertical-align:baseline !important;width:1em;height:0.6669em;}.leaflet-left .leaflet-control-scale{margin-left:5px;}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px;}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,0.8);text-shadow:1px 1px #fff;}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px;}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777;}.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar{box-shadow:none;}.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar{border:2px solid rgba(0,0,0,0.2);background-clip:padding-box;}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px;}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px;}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px;}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0;}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none;}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:white;color:#333;box-shadow:0 3px 14px rgba(0,0,0,0.4);}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:transparent;}.leaflet-container a.leaflet-popup-close-button:hover,.leaflet-container a.leaflet-popup-close-button:focus{color:#585858;}.leaflet-popup-scrolled{overflow:auto;}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1;}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto;-ms-filter:"progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678,M12=0.70710678,M21=-0.70710678,M22=0.70710678)";filter:progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678,M12=0.70710678,M21=-0.70710678,M22=0.70710678);}.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999;}.leaflet-div-icon{background:#fff;border:1px solid #666;}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,0.4);}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto;}.leaflet-tooltip-top:before,.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{position:absolute;pointer-events:none;border:6px solid transparent;background:transparent;content:"";}.leaflet-tooltip-bottom{margin-top:6px;}.leaflet-tooltip-top{margin-top:-6px;}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px;}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff;}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff;}.leaflet-tooltip-left{margin-left:-6px;}.leaflet-tooltip-right{margin-left:6px;}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px;}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff;}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff;}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}</style>
 <style>
-/* Mise en page : carte plein cadre et colonne de lecture (à droite sur grand écran, dessous sur téléphone).
-   Palette : uniquement des gris, du noir de la mer au blanc du texte ; le rouge est réservé aux navires. */
+/* La carte occupe tout l'écran. Par-dessus : une barre (marque, compteur, modes), le panneau des
+   indicateurs retenus par l'agent (à gauche sur grand écran, en bas sur téléphone) et le tiroir des
+   détails. Palette en gris, du noir de la mer au blanc du texte ; le rouge est réservé aux navires. */
 :root {
   --mer: #000000;
   --fond: #0b0b0b;
   --surface: #141414;
+  --voile: rgba(11, 11, 11, .80);
+  --voile-fort: rgba(11, 11, 11, .93);
   --graticule: #121212;
   --terre: #242424;
   --filet: #2c2c2c;
@@ -24,66 +36,106 @@
   --cote: #5c5c5c;
   --gris: #8d8d8d;
   --clair: #c8c8c8;
+  --texte-doux: #dcdcdc;
   --blanc: #f4f4f2;
   --rouge: #ff3b30;
+  --rouge-clair: #ff6b61;
   --display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
   --texte: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --chiffres: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --haut: env(safe-area-inset-top, 0px);
+  --bas: env(safe-area-inset-bottom, 0px);
+  --gauche: max(16px, env(safe-area-inset-left, 0px));
+  --droite: max(16px, env(safe-area-inset-right, 0px));
+  --lent: 260ms cubic-bezier(.2, .7, .2, 1);
   color-scheme: dark;
 }
-html, body { height: 100%; }
-body { margin: 0; background: var(--fond); color: var(--blanc); font: 15px/1.55 var(--texte); -webkit-font-smoothing: antialiased; }
-.app { display: grid; grid-template-columns: minmax(0, 1fr) 460px; height: 100%; }
-.carte-zone { position: relative; min-height: 0; }
-#carte { position: absolute; inset: 0; background: var(--mer); }
-.panneau { overflow-y: auto; border-left: 1px solid var(--filet); background: var(--fond); }
-.panneau-interieur { padding-block: 20px 40px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; gap: 34px; }
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; background: var(--mer); color: var(--blanc); font: 15px/1.55 var(--texte); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+#carte { position: fixed; inset: 0; background: var(--mer); }
+button { font: inherit; color: inherit; }
 
-/* En-tête posé sur la carte */
-.entete { position: absolute; top: 14px; left: max(16px, env(safe-area-inset-left, 0px)); right: 16px; z-index: 800; pointer-events: none; display: grid; gap: 2px; }
-.marque { margin: 0; font: 600 13px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--blanc); }
+/* ---------- Barre du haut ---------- */
+.barre { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: calc(var(--haut) + 12px) var(--droite) 28px var(--gauche); pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .78), rgba(0, 0, 0, .45) 55%, rgba(0, 0, 0, 0)); }
+.barre > * { pointer-events: auto; }
+.marque-bloc { min-width: 0; display: grid; gap: 4px; }
+.marque { margin: 0; display: flex; align-items: center; gap: 8px; font: 600 13px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--blanc); }
 .marque span { color: var(--rouge); }
-.compteur { margin: 6px 0 0; font: 400 12.5px/1.4 var(--chiffres); color: var(--clair); text-shadow: 0 0 6px #000, 0 0 2px #000; }
-.demo { justify-self: start; margin: 8px 0 0; padding: 3px 8px; font: 500 11px/1.3 var(--chiffres); letter-spacing: .06em; text-transform: uppercase; color: var(--fond); background: var(--blanc); border-radius: 2px; }
+.marque svg { width: 12px; height: 15px; flex: none; }
+.compteur { margin: 0; font: 400 12px/1.4 var(--chiffres); color: var(--clair); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.demo { justify-self: start; white-space: nowrap; margin: 2px 0 0; padding: 2px 7px; font: 500 10.5px/1.3 var(--chiffres); letter-spacing: .06em; text-transform: uppercase; color: var(--fond); background: var(--blanc); border-radius: 2px; }
 
-.legende { position: absolute; left: max(16px, env(safe-area-inset-left, 0px)); bottom: 26px; z-index: 800; display: flex; flex-wrap: wrap; gap: 6px 14px; max-width: calc(100% - 90px); padding: 8px 10px; background: rgba(11, 11, 11, .82); border: 1px solid var(--filet); border-radius: 3px; font: 400 11.5px/1.2 var(--texte); color: var(--clair); }
-.legende span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.legende svg { width: 14px; height: 14px; flex: none; }
+.modes { flex: none; display: inline-flex; gap: 2px; padding: 3px; background: var(--voile); border: 1px solid var(--filet); border-radius: 6px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.modes button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 11px; border-radius: 4px; cursor: pointer;
+  font: 600 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--clair); transition: background var(--lent), color var(--lent); }
+.modes button svg { width: 15px; height: 15px; flex: none; }
+.modes button:hover { color: var(--blanc); }
+.modes button[aria-pressed="true"] { background: var(--blanc); color: var(--fond); }
+.modes button:focus-visible { outline: 1px solid var(--blanc); outline-offset: 2px; }
 
-/* Panneau */
-h2.titre { margin: 0; font: 600 12px/1.2 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--clair); }
-.bloc-tete { display: grid; gap: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--filet); margin-bottom: 4px; }
-.meta { margin: 0; font: 400 12px/1.45 var(--chiffres); color: var(--gris); }
-
-.titre-jour { margin: 12px 0 14px; font: 600 21px/1.2 var(--display); letter-spacing: .005em; color: var(--blanc); text-wrap: balance; }
-.kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.kpi { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 12px 12px 11px; background: var(--surface); border: 1px solid var(--filet); border-radius: 3px; }
-.kpi[data-lat] { cursor: pointer; }
-.kpi[data-lat]:hover { border-color: var(--cote); }
-.kpi:focus-visible { outline: 1px solid var(--blanc); outline-offset: 2px; }
-.kpi--fort { border-color: var(--gris); }
-.kpi-cat { font: 500 10.5px/1.2 var(--chiffres); letter-spacing: .08em; text-transform: uppercase; color: var(--gris); }
-.kpi-titre { font: 600 14px/1.25 var(--display); color: var(--blanc); overflow-wrap: anywhere; }
-.kpi-valeur { margin-top: 2px; font: 500 22px/1.1 var(--chiffres); color: var(--blanc); font-variant-numeric: tabular-nums; }
-.kpi-unite { font: 400 11px/1.3 var(--texte); color: var(--gris); }
-.kpi-var { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 3px; }
-.kpi-var .pastille { min-width: 0; }
-.kpi-var2 { font: 400 11.5px/1.3 var(--chiffres); color: var(--gris); }
-.kpi-etat { align-self: flex-start; padding: 1px 6px; font: 500 11px/1.35 var(--texte); color: var(--fond); background: var(--blanc); border-radius: 2px; }
-.kpi-pourquoi { margin-top: 4px; font: 400 12.5px/1.4 var(--texte); color: #d8d8d8; }
-.kpi-ref { font: 400 11px/1.3 var(--chiffres); color: var(--gris); }
-.kpi-note { font: 400 11.5px/1.35 var(--texte); color: var(--gris); font-style: italic; }
-.surveiller { margin-top: 16px; }
-.surveiller-titre { margin: 0 0 6px; font: 600 11px/1.2 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--gris); }
-.surveiller ul { margin: 0; padding-left: 16px; font-size: 13.5px; line-height: 1.5; color: #dcdcdc; }
+/* ---------- Panneau « L'essentiel » posé sur la carte ---------- */
+.infos { position: fixed; z-index: 900; left: var(--gauche); top: calc(var(--haut) + 76px); width: 372px; max-height: calc(100% - var(--haut) - 76px - 16px - var(--bas));
+  display: flex; flex-direction: column; background: var(--voile); border: 1px solid var(--filet); border-radius: 8px; overflow: hidden;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: transform var(--lent), opacity var(--lent), visibility var(--lent); }
+.infos-tete { padding: 14px 16px 10px; border-bottom: 1px solid var(--filet); }
+.infos-meta { margin: 0 0 4px; font: 400 11.5px/1.4 var(--chiffres); color: var(--gris); }
+.titre-jour { margin: 0; font: 600 19px/1.2 var(--display); letter-spacing: .005em; color: var(--blanc); text-wrap: balance; }
+.kpis { overflow-y: auto; overscroll-behavior: contain; }
+.kpi { position: relative; display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 10px; row-gap: 5px; align-items: start;
+  padding: 12px 16px 12px 14px; border-bottom: 1px solid var(--filet); transition: background var(--lent); }
+.kpi:last-child { border-bottom: 0; }
+.kpi--situe { cursor: pointer; }
+.kpi--situe:hover { background: rgba(255, 255, 255, .035); }
+.kpi--actif { background: rgba(255, 255, 255, .06); }
+.kpi:focus-visible { outline: 1px solid var(--blanc); outline-offset: -2px; }
+.kpi-num { grid-row: 1; grid-column: 1; width: 22px; height: 22px; box-sizing: border-box; border: 1px solid var(--cote); border-radius: 50%;
+  font: 500 11px/20px var(--chiffres); text-align: center; color: var(--clair); }
+.kpi--situe .kpi-num { border-color: var(--blanc); color: var(--blanc); }
+.kpi--actif .kpi-num { background: var(--blanc); color: var(--fond); }
+.kpi-tete { grid-column: 2; min-width: 0; }
+.kpi-titre { display: block; font: 600 15px/1.2 var(--display); color: var(--blanc); overflow-wrap: anywhere; }
+.kpi-cat { display: block; margin-top: 2px; font: 400 10.5px/1.3 var(--chiffres); letter-spacing: .06em; text-transform: uppercase; color: var(--gris); }
+.kpi-chiffre { grid-column: 3; text-align: right; }
+.kpi-valeur { display: block; font: 500 20px/1.05 var(--chiffres); color: var(--blanc); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kpi-unite { display: block; margin-top: 2px; font: 400 10.5px/1.3 var(--texte); color: var(--gris); white-space: nowrap; }
+.kpi-var, .kpi-pourquoi, .kpi-note, .kpi-ref { grid-column: 2 / 4; margin: 0; }
+.kpi-var { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; }
+.kpi-var2 { font: 400 11px/1.3 var(--chiffres); color: var(--gris); }
+.kpi-etat { padding: 1px 6px; font: 500 11px/1.4 var(--texte); color: var(--fond); background: var(--blanc); border-radius: 2px; white-space: nowrap; }
+.kpi-pourquoi { font: 400 13px/1.42 var(--texte); color: var(--texte-doux); }
+.kpi-note { font: italic 400 11.5px/1.38 var(--texte); color: var(--gris); }
+.kpi-ref { font: 400 10.5px/1.3 var(--chiffres); color: var(--gris); }
+.surveiller { margin: 0; border-top: 1px solid var(--filet); }
+.surveiller summary { list-style: none; cursor: pointer; padding: 10px 16px; font: 600 11px/1.2 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--gris); }
+.surveiller summary::-webkit-details-marker { display: none; }
+.surveiller summary::after { content: " +"; }
+.surveiller[open] summary::after { content: " −"; }
+.surveiller ul { margin: 0; padding: 0 16px 12px 30px; font-size: 13px; line-height: 1.5; color: var(--texte-doux); }
 .surveiller li { margin-bottom: 3px; }
 .surveiller li::marker { color: var(--gris); }
-.references summary { padding: 6px 0 0; font: 400 12px/1.4 var(--chiffres); color: var(--gris); }
-.references ol { margin: 6px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.5; color: var(--gris); }
-@media (max-width: 359px) { .kpis { grid-template-columns: 1fr; } }
-.controle { margin: 14px 0 0; padding-top: 10px; border-top: 1px dashed var(--filet); font: 400 12px/1.5 var(--chiffres); color: var(--gris); }
-.controle.alerte { color: var(--blanc); }
+.vide { margin: 0; padding: 14px 16px; color: var(--gris); font-size: 13.5px; }
 
+.pastille { box-sizing: border-box; padding: 1px 7px; font: 500 12px/1.4 var(--chiffres); border-radius: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--gris); border: 1px solid var(--filet); }
+.pastille--ecart { color: var(--blanc); border-color: var(--clair); }
+.pastille--fort { color: var(--fond); background: var(--blanc); border-color: var(--blanc); }
+
+/* ---------- Tiroir « Détails » ---------- */
+.details { position: fixed; z-index: 950; top: calc(var(--haut) + 76px); right: var(--droite); bottom: calc(16px + var(--bas)); width: 400px;
+  display: flex; flex-direction: column; background: var(--voile-fort); border: 1px solid var(--filet); border-radius: 8px; overflow: hidden;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform var(--lent), opacity var(--lent), visibility var(--lent); }
+.details-tete { display: flex; align-items: center; justify-content: space-between; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--filet); }
+.details-tete h2 { margin: 0; font: 600 12px/1.2 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--clair); }
+.fermer { all: unset; box-sizing: border-box; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 4px; cursor: pointer; color: var(--clair); }
+.fermer:hover { background: rgba(255, 255, 255, .06); color: var(--blanc); }
+.fermer:focus-visible { outline: 1px solid var(--blanc); }
+.details-corps { overflow-y: auto; overscroll-behavior: contain; padding: 18px 18px calc(28px + var(--bas)); display: grid; gap: 30px; }
+h3.titre { margin: 0; font: 600 12px/1.2 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--clair); }
+.bloc-tete { display: grid; gap: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--filet); margin-bottom: 2px; }
+.meta { margin: 0; font: 400 12px/1.45 var(--chiffres); color: var(--gris); }
+.controle { margin: 0; font: 400 12px/1.5 var(--chiffres); color: var(--gris); }
+.controle.alerte { color: var(--blanc); }
 .liste { list-style: none; margin: 0; padding: 0; }
 .ligne { border-bottom: 1px solid var(--filet); }
 .ligne-btn { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; gap: 4px 12px; padding: 11px 0 10px; cursor: pointer; }
@@ -94,35 +146,36 @@ h2.titre { margin: 0; font: 600 12px/1.2 var(--display); letter-spacing: .18em; 
 .ligne-nom small { display: block; font: 400 11.5px/1.3 var(--chiffres); color: var(--gris); margin-top: 2px; }
 .ligne-valeur { font: 400 14px/1.2 var(--chiffres); color: var(--blanc); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .ligne-valeur small { color: var(--gris); font-size: 11px; margin-left: 2px; }
+.ligne .pastille { min-width: 58px; text-align: center; }
 .spark { grid-column: 1 / -1; display: block; width: 100%; height: 30px; margin-top: 4px; }
-
-.pastille { min-width: 64px; box-sizing: border-box; padding: 2px 7px; font: 500 12px/1.35 var(--chiffres); text-align: center; border-radius: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--gris); border: 1px solid transparent; }
-.pastille--ecart { color: var(--blanc); border-color: var(--clair); }
-.pastille--fort { color: var(--fond); background: var(--blanc); border-color: var(--blanc); }
-
-.barre { grid-column: 1 / -1; height: 3px; background: var(--filet); position: relative; margin-top: 6px; }
-.barre i { position: absolute; inset: 0 auto 0 0; background: var(--clair); }
-.barre b { position: absolute; inset: 0 auto 0 0; background: var(--rouge); opacity: .55; }
-
-details { margin-top: 8px; }
-summary { cursor: pointer; padding: 10px 0; font: 500 13px/1.3 var(--texte); color: var(--gris); }
-summary:hover { color: var(--clair); }
-
+.barre-zone { grid-column: 1 / -1; height: 3px; background: var(--filet); position: relative; margin-top: 6px; }
+.barre-zone i { position: absolute; inset: 0 auto 0 0; background: var(--clair); }
+.barre-zone b { position: absolute; inset: 0 auto 0 0; background: var(--rouge); opacity: .55; }
+details.autres summary, details.references summary { cursor: pointer; padding: 10px 0 2px; font: 500 13px/1.3 var(--texte); color: var(--gris); }
+details.references ol { margin: 8px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.5; color: var(--gris); }
 .note { margin: 10px 0 0; font: 400 12.5px/1.5 var(--texte); color: var(--gris); }
 .pied { display: grid; gap: 10px; font-size: 12.5px; line-height: 1.55; color: var(--gris); }
 .pied p { margin: 0; }
 .pied a { color: var(--clair); text-underline-offset: 3px; }
 .etat-ok { color: var(--clair); }
-.vide { padding: 14px 0; color: var(--gris); font-size: 13.5px; }
+.installer { all: unset; box-sizing: border-box; justify-self: start; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--clair); border-radius: 4px; cursor: pointer;
+  font: 600 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--blanc); }
+.installer:hover { background: var(--blanc); color: var(--fond); }
+.installer:focus-visible { outline: 1px solid var(--blanc); outline-offset: 2px; }
 
-/* Carte : commandes et fenêtres dans la même palette */
+/* ---------- Légende ---------- */
+.legende { position: fixed; z-index: 850; right: calc(var(--droite) + 46px); bottom: calc(14px + var(--bas)); display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 7px 10px;
+  background: var(--voile); border: 1px solid var(--filet); border-radius: 6px; font: 400 11.5px/1.2 var(--texte); color: var(--clair); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.legende span, .legende-bloc span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.legende svg, .legende-bloc svg { width: 14px; height: 14px; flex: none; }
+.legende-bloc { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12.5px; color: var(--clair); }
+
+/* ---------- Carte : repères de l'agent, détroits, fenêtres ---------- */
 .leaflet-container { background: var(--mer); font-family: var(--texte); }
-.leaflet-control-zoom { border: 1px solid var(--filet) !important; border-radius: 3px !important; margin-right: max(12px, env(safe-area-inset-right, 0px)) !important; }
-.leaflet-control-zoom a { background: rgba(11, 11, 11, .9) !important; color: var(--clair) !important; border-bottom-color: var(--filet) !important; }
+.leaflet-control-zoom { border: 1px solid var(--filet) !important; border-radius: 6px !important; overflow: hidden; margin-right: var(--droite) !important; margin-bottom: calc(14px + var(--bas)) !important; }
+.leaflet-control-zoom a { background: var(--voile) !important; color: var(--clair) !important; border-bottom-color: var(--filet) !important; }
 .leaflet-control-zoom a:hover { color: var(--blanc) !important; background: var(--surface) !important; }
-.leaflet-control-attribution { background: rgba(0, 0, 0, .6) !important; color: var(--gris) !important; font: 400 10.5px/1.4 var(--texte); }
-.leaflet-control-attribution a { color: var(--clair) !important; }
-.leaflet-popup-content-wrapper { background: var(--surface); color: var(--blanc); border: 1px solid var(--frontiere); border-radius: 3px; box-shadow: 0 6px 24px rgba(0, 0, 0, .6); }
+.leaflet-popup-content-wrapper { background: var(--surface); color: var(--blanc); border: 1px solid var(--frontiere); border-radius: 4px; box-shadow: 0 6px 24px rgba(0, 0, 0, .6); }
 .leaflet-popup-tip { background: var(--surface); border: 1px solid var(--frontiere); }
 .leaflet-popup-content { margin: 12px 14px; font: 400 13px/1.45 var(--texte); }
 .leaflet-container a.leaflet-popup-close-button { color: var(--gris); }
@@ -131,100 +184,169 @@ summary:hover { color: var(--clair); }
 .fiche dl { display: grid; grid-template-columns: auto auto; gap: 3px 14px; margin: 0; }
 .fiche dt { color: var(--gris); }
 .fiche dd { margin: 0; font-family: var(--chiffres); font-size: 12.5px; text-align: right; }
-.etiquette { background: transparent; border: 0; box-shadow: none; padding: 0; color: var(--blanc); font: 500 11.5px/1.2 var(--display); letter-spacing: .03em; text-shadow: 0 0 4px #000, 0 0 2px #000, 0 0 1px #000; white-space: nowrap; }
+.etiquette { background: transparent; border: 0; box-shadow: none; padding: 0; color: var(--clair); font: 500 11px/1.2 var(--display); letter-spacing: .03em; text-shadow: 0 0 4px #000, 0 0 2px #000, 0 0 1px #000; white-space: nowrap; }
 .etiquette::before { display: none; }
-.etiquette em { font-style: normal; font-family: var(--chiffres); font-size: 11px; margin-left: 5px; padding: 0 4px; border-radius: 2px; }
-.etiquette em.fort { background: var(--blanc); color: var(--fond); text-shadow: none; }
-.etiquette em.ecart { border: 1px solid var(--clair); }
 .port { color: var(--gris); font: 400 10.5px/1 var(--texte); letter-spacing: .04em; text-shadow: 0 0 3px #000; white-space: nowrap; }
 .port::before { content: ""; display: inline-block; width: 3px; height: 3px; margin-right: 5px; vertical-align: middle; background: var(--gris); }
 
-@media (max-width: 999px) {
-  html, body { height: auto; }
-  .app { display: block; height: auto; }
-  .carte-zone { height: 50vh; height: 50svh; min-height: 300px; }
-  .panneau { border-left: 0; border-top: 1px solid var(--filet); overflow: visible; }
-  .panneau-interieur { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  .legende { bottom: 22px; font-size: 11px; gap: 4px 10px; }
+.appel { display: flex !important; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
+.appel-num { position: relative; flex: none; width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: var(--blanc); color: var(--fond);
+  font: 500 11.5px/22px var(--chiffres); text-align: center; box-shadow: 0 0 0 3px rgba(0, 0, 0, .6); }
+.appel-txt { padding: 3px 8px 3px 7px; background: rgba(11, 11, 11, .88); border: 1px solid var(--cote); border-radius: 3px; font: 600 12.5px/1.25 var(--display); color: var(--blanc); transition: background var(--lent), border-color var(--lent), color var(--lent); }
+.appel-txt i { font: normal 400 11px/1 var(--chiffres); color: var(--clair); margin-left: 7px; }
+.appel:hover .appel-txt { border-color: var(--clair); }
+.appel--actif { z-index: 1000 !important; }
+.appel--actif .appel-txt { background: var(--blanc); border-color: var(--blanc); color: var(--fond); }
+.appel--actif .appel-txt i { color: var(--fond); }
+.appel--actif .appel-num::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--blanc); animation: onde 1.6s ease-out 2; }
+@keyframes onde { from { transform: scale(1); opacity: .9; } to { transform: scale(2.6); opacity: 0; } }
+
+/* ---------- Modes d'affichage ---------- */
+body[data-mode="carte"] .infos { opacity: 0; visibility: hidden; transform: translateX(-16px); }
+body[data-mode="carte"] .leaflet-appels-pane { display: none; }
+body:not([data-mode="details"]) .details { opacity: 0; visibility: hidden; transform: translateX(16px); }
+body[data-mode="details"] .legende { display: none; }
+body[data-mode="details"] .leaflet-right { right: 416px; }
+@media (max-width: 1139px) and (min-width: 700px) { body[data-mode="details"] .infos { opacity: 0; visibility: hidden; transform: translateX(-16px); } }
+
+/* ---------- Téléphone en portrait (et tablette) : panneau en bas, détails en feuille ---------- */
+@media (max-width: 699px), (max-width: 899px) and (min-height: 521px) {
+  .barre { padding-bottom: 22px; }
+  .barre { gap: 10px; }
+  .marque { letter-spacing: .16em; font-size: 12px; }
+  .modes button { padding: 0 10px; min-height: 34px; letter-spacing: .06em; }
+  .modes button[aria-pressed="false"] .libelle { display: none; }
+  .compteur { font-size: 11px; }
+  .appel-txt i { display: none; }
+  .infos { left: 0; right: 0; top: auto; bottom: 0; width: auto; max-height: min(52%, 360px); border-radius: 14px 14px 0 0; border-width: 1px 0 0; padding-bottom: var(--bas); background: var(--voile-fort); }
+  .infos-tete { padding: 10px 16px 8px; border-bottom: 0; }
+  .infos-tete::before { content: ""; display: block; width: 34px; height: 4px; margin: 0 auto 8px; border-radius: 2px; background: var(--frontiere); }
+  .titre-jour { font-size: 16.5px; }
+  .kpis { display: flex; gap: 10px; overflow-x: auto; overflow-y: hidden; padding: 2px var(--droite) 12px var(--gauche); scroll-snap-type: x mandatory; scroll-padding-inline: var(--gauche); scrollbar-width: none; }
+  .kpis::-webkit-scrollbar { display: none; }
+  .kpi { flex: 0 0 min(80vw, 320px); scroll-snap-align: start; border: 1px solid var(--filet); border-radius: 8px; background: rgba(20, 20, 20, .9); padding: 11px 12px; }
+  .kpi:last-child { border-bottom: 1px solid var(--filet); }
+  .kpi--actif { border-color: var(--clair); background: rgba(34, 34, 34, .95); }
+  .kpi-pourquoi { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .kpi-ref { display: none; }
+  .surveiller summary { padding: 4px 16px 10px; }
+  body[data-mode="carte"] .infos { transform: translateY(24px); }
+  .details { top: calc(var(--haut) + 86px); left: 0; right: 0; bottom: 0; width: auto; border-radius: 14px 14px 0 0; border-width: 1px 0 0; }
+  body:not([data-mode="details"]) .details { transform: translateY(24px); }
+  body[data-mode="details"] .leaflet-right { right: 0; }
+  .legende { left: var(--gauche); right: auto; bottom: calc(14px + var(--bas)); max-width: calc(100% - 32px); font-size: 11px; gap: 4px 10px; }
+  body:not([data-mode="carte"]) .legende { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media (max-width: 359px) { .modes button { padding: 0 8px; } .modes button .libelle { display: none; } .marque { letter-spacing: .12em; } }
+@media (pointer: coarse) { .leaflet-control-zoom { display: none; } .legende { right: var(--droite); } }
+@media (prefers-reduced-motion: reduce) { *, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
-<body>
-<div class="app">
-  <section class="carte-zone" aria-label="Carte">
-    <div id="carte"></div>
-    <header class="entete">
-      <p class="marque">Vigie <span>·</span> pétrole</p>
-      <p class="compteur" id="compteur">Chargement des positions…</p>
-      <p class="demo" id="bandeau-demo" hidden>Démo · données fictives</p>
-    </header>
-    <div class="legende" aria-label="Légende">
-      <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)"/></svg>En route</span>
-      <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 L9.5 5 L9.5 12.5 L4.5 12.5 L4.5 5 Z" fill="none" stroke="var(--rouge)" stroke-width="1.3"/></svg>À l'arrêt</span>
-      <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)" opacity=".38"/></svg>Vu il y a plus de 3 h</span>
-      <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="var(--mer)" stroke="var(--blanc)" stroke-width="1.5"/></svg>Détroit</span>
-    </div>
-  </section>
+<body data-mode="infos">
+<div id="carte" role="region" aria-label="Carte des pétroliers"></div>
 
-  <aside class="panneau">
-    <div class="panneau-interieur">
-      <section id="essentiel" aria-labelledby="t-essentiel">
-        <div class="bloc-tete">
-          <h2 class="titre" id="t-essentiel">L'essentiel</h2>
-          <p class="meta" id="essentiel-meta">Chargement…</p>
-        </div>
-        <p class="titre-jour" id="titre-jour"></p>
-        <div class="kpis" id="kpis"></div>
-        <div class="surveiller" id="surveiller" hidden>
-          <p class="surveiller-titre">À surveiller</p>
-          <ul id="liste-surveiller"></ul>
-        </div>
-        <p class="controle" id="essentiel-controle" hidden></p>
-        <details class="references" id="references" hidden>
-          <summary>Articles cités</summary>
-          <ol id="liste-references"></ol>
-        </details>
-      </section>
+<header class="barre">
+  <div class="marque-bloc">
+    <p class="marque"><svg viewBox="0 0 12 15" aria-hidden="true"><path d="M1 2.4V12.6A5 1.7 0 0 0 11 12.6V2.4Z" fill="var(--rouge)"/><path d="M1 6.1A5 1.7 0 0 0 11 6.1M1 9.6A5 1.7 0 0 0 11 9.6" fill="none" stroke="var(--fond)" stroke-width=".9"/><ellipse cx="6" cy="2.4" rx="5" ry="1.7" fill="var(--rouge-clair)"/></svg>Vigie <span>·</span> pétrole</p>
+    <p class="compteur" id="compteur">Chargement des positions…</p>
+    <p class="demo" id="bandeau-demo" hidden>Démo · données fictives</p>
+  </div>
+  <div class="modes" role="group" aria-label="Affichage">
+    <button type="button" data-mode="carte" aria-pressed="false" aria-label="Carte seule" title="Ne voir que la carte">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 3.5 5.5 2l5 1.5 4-1.5v10.5l-4 1.5-5-1.5-4 1.5Z"/><path d="M5.5 2v10.5M10.5 3.5V14"/></svg><span class="libelle">Carte</span></button>
+    <button type="button" data-mode="infos" aria-pressed="true" aria-label="Infos" title="Indicateurs retenus par l'agent, par-dessus la carte">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="2" width="13" height="12" rx="1.5"/><path d="M4.5 10.5V8M8 10.5V5.5M11.5 10.5V7"/></svg><span class="libelle">Infos</span></button>
+    <button type="button" data-mode="details" aria-pressed="false" aria-label="Détails" title="Toutes les données et les sources">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h12M2 12h8"/></svg><span class="libelle">Détails</span></button>
+  </div>
+</header>
 
-      <section id="detroits" aria-labelledby="t-detroits">
-        <div class="bloc-tete">
-          <h2 class="titre" id="t-detroits">Détroits</h2>
-          <p class="meta" id="detroits-meta">Navires-citernes par jour, moyenne sur 7 jours, écart aux 4 semaines précédentes</p>
-        </div>
-        <ol class="liste" id="liste-detroits"></ol>
-        <details>
-          <summary>Autres détroits suivis par PortWatch</summary>
-          <ol class="liste" id="liste-autres"></ol>
-        </details>
-      </section>
+<section class="infos" id="infos" aria-labelledby="titre-jour">
+  <div class="infos-tete">
+    <p class="infos-meta" id="essentiel-meta">Chargement…</p>
+    <h1 class="titre-jour" id="titre-jour">L'essentiel</h1>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <details class="surveiller" id="surveiller" hidden>
+    <summary>À surveiller</summary>
+    <ul id="liste-surveiller"></ul>
+  </details>
+</section>
 
-      <section id="zones" aria-labelledby="t-zones">
-        <div class="bloc-tete">
-          <h2 class="titre" id="t-zones">Zones</h2>
-          <p class="meta">Navires-citernes repérés ces 6 dernières heures, en rouge la part à l'arrêt</p>
-        </div>
-        <ol class="liste" id="liste-zones"></ol>
-      </section>
+<aside class="details" id="details" aria-labelledby="t-details">
+  <div class="details-tete">
+    <h2 id="t-details">Détails</h2>
+    <button type="button" class="fermer" id="fermer-details" aria-label="Fermer les détails">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+    </button>
+  </div>
+  <div class="details-corps">
+    <section aria-labelledby="t-controle">
+      <div class="bloc-tete"><h3 class="titre" id="t-controle">Sélection de l'agent</h3></div>
+      <p class="controle" id="essentiel-controle">Chargement…</p>
+      <details class="references" id="references" hidden>
+        <summary>Articles cités</summary>
+        <ol id="liste-references"></ol>
+      </details>
+    </section>
 
-      <section id="marches" aria-labelledby="t-marches">
-        <div class="bloc-tete">
-          <h2 class="titre" id="t-marches">Marchés</h2>
-          <p class="meta" id="marches-meta">Dernier cours et variation sur un mois</p>
-        </div>
-        <ol class="liste" id="liste-marches"></ol>
-        <p class="note" id="stocks-us" hidden></p>
-      </section>
+    <section aria-labelledby="t-detroits">
+      <div class="bloc-tete">
+        <h3 class="titre" id="t-detroits">Détroits</h3>
+        <p class="meta" id="detroits-meta">Navires-citernes par jour, moyenne sur 7 jours, écart aux 4 semaines précédentes</p>
+      </div>
+      <ol class="liste" id="liste-detroits"></ol>
+      <details class="autres">
+        <summary>Autres détroits suivis par PortWatch</summary>
+        <ol class="liste" id="liste-autres"></ol>
+      </details>
+    </section>
 
-      <footer class="pied" aria-label="Sources">
-        <div class="bloc-tete"><h2 class="titre">Sources et limites</h2></div>
-        <p>Positions : flux AIS gratuit d'<a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>, dont les antennes sont surtout en Europe et en Amérique du Nord. Le Golfe, la mer Rouge et l'Asie ne sont presque pas couverts : là-bas, les passages dans les détroits (PortWatch, par satellite) sont la mesure fiable. Seuls les navires-citernes de mer sont affichés (au moins 14 m de large), pas les barges fluviales.</p>
-        <p>Détroits : <a href="https://portwatch.imf.org" target="_blank" rel="noopener">IMF PortWatch</a>, publié chaque semaine avec quelques jours de décalage. Marchés : Yahoo Finance, FRED, EIA. Fond de carte : Natural Earth.</p>
-        <p>Les chiffres sont calculés par le programme. Toutes les 6 heures, un modèle de langage choisit les indicateurs les plus importants et écrit une ligne pour chacun. Ce n'est pas un conseil d'investissement.</p>
-        <p id="etat-collecte"></p>
-      </footer>
-    </div>
-  </aside>
+    <section aria-labelledby="t-zones">
+      <div class="bloc-tete">
+        <h3 class="titre" id="t-zones">Zones</h3>
+        <p class="meta">Pétroliers repérés ces 6 dernières heures, en rouge la part à l'arrêt</p>
+      </div>
+      <ol class="liste" id="liste-zones"></ol>
+    </section>
+
+    <section aria-labelledby="t-marches">
+      <div class="bloc-tete">
+        <h3 class="titre" id="t-marches">Marchés</h3>
+        <p class="meta" id="marches-meta">Dernier cours et variation sur un mois</p>
+      </div>
+      <ol class="liste" id="liste-marches"></ol>
+      <p class="note" id="stocks-us" hidden></p>
+    </section>
+
+    <section aria-labelledby="t-legende">
+      <div class="bloc-tete"><h3 class="titre" id="t-legende">Légende</h3></div>
+      <div class="legende-bloc">
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)"/></svg>Pétrolier en route</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 L9.5 5 L9.5 12.5 L4.5 12.5 L4.5 5 Z" fill="none" stroke="var(--rouge)" stroke-width="1.3"/></svg>À l'arrêt</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)" opacity=".38"/></svg>Vu il y a plus de 3 h</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="var(--mer)" stroke="var(--blanc)" stroke-width="1.5"/></svg>Détroit</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="var(--blanc)"/><text x="7" y="10" text-anchor="middle" font-size="8" font-family="IBM Plex Mono, monospace" fill="var(--fond)">1</text></svg>Indicateur retenu par l'agent</span>
+      </div>
+    </section>
+
+    <footer class="pied" aria-labelledby="t-sources">
+      <div class="bloc-tete"><h3 class="titre" id="t-sources">Sources et limites</h3></div>
+      <p>Positions : flux AIS gratuit d'<a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>, dont les antennes sont surtout en Europe et en Amérique du Nord. Le Golfe, la mer Rouge et l'Asie ne sont presque pas couverts : là-bas, les passages dans les détroits (PortWatch, par satellite) sont la mesure fiable. Seuls les navires-citernes de mer sont affichés (au moins 14 m de large), pas les barges fluviales.</p>
+      <p>Détroits : <a href="https://portwatch.imf.org" target="_blank" rel="noopener">IMF PortWatch</a>, publié chaque semaine avec quelques jours de décalage. Marchés : Yahoo Finance, FRED, EIA. Fond de carte : Natural Earth. Carte : Leaflet.</p>
+      <p>Les chiffres sont calculés par le programme. Toutes les 6 heures, un modèle de langage choisit les indicateurs les plus importants, les classe et écrit une ligne pour chacun. Ce n'est pas un conseil d'investissement.</p>
+      <p id="etat-collecte"></p>
+      <button type="button" class="installer" id="installer" hidden>Installer l'application</button>
+      <p id="aide-ios" hidden>Pour l'installer sur iPhone : bouton Partager de Safari, puis « Sur l'écran d'accueil ».</p>
+    </footer>
+  </div>
+</aside>
+
+<div class="legende" aria-label="Légende">
+  <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)"/></svg>En route</span>
+  <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 L9.5 5 L9.5 12.5 L4.5 12.5 L4.5 5 Z" fill="none" stroke="var(--rouge)" stroke-width="1.3"/></svg>À l'arrêt</span>
+  <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 L10 5 L10 13 L4 13 L4 5 Z" fill="var(--rouge)" opacity=".38"/></svg>Vu il y a plus de 3 h</span>
+  <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="var(--mer)" stroke="var(--blanc)" stroke-width="1.5"/></svg>Détroit</span>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -232,12 +354,14 @@ summary:hover { color: var(--clair); }
 (function () {
   "use strict";
 
+  var corps = document.body;
   var css = getComputedStyle(document.documentElement);
   var C = {};
   ["mer", "graticule", "terre", "frontiere", "cote", "gris", "clair", "blanc", "rouge"].forEach(function (k) {
     C[k] = css.getPropertyValue("--" + k).trim();
   });
   var mouvementReduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var compact = window.matchMedia("(max-width: 699px), (max-width: 899px) and (min-height: 521px)");
 
   // ---------- Mise en forme ----------
   var nf = function (dec) { return new Intl.NumberFormat("fr-FR", { minimumFractionDigits: dec, maximumFractionDigits: dec }); };
@@ -265,6 +389,7 @@ summary:hover { color: var(--clair); }
     if (h < 48) return "il y a " + h + " h";
     return "il y a " + Math.round(h / 24) + " j";
   }
+  function capitaliser(t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : ""; }
   function el(tag, attrs, html) {
     var e = document.createElement(tag);
     if (attrs) Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
@@ -282,16 +407,91 @@ summary:hover { color: var(--clair); }
       return r.json();
     });
   }
+  function lireStockage(cle) { try { return window.localStorage.getItem(cle); } catch (e) { return null; } }
+  function ecrireStockage(cle, valeur) { try { window.localStorage.setItem(cle, valeur); } catch (e) { /* stockage indisponible */ } }
+
+  // ---------- Modes : carte seule, infos par-dessus, détails ----------
+  var MODES = ["carte", "infos", "details"];
+  var mode = "infos", modePrecedent = "infos";
+  function definirMode(nouveau) {
+    if (MODES.indexOf(nouveau) < 0) nouveau = "infos";
+    if (mode !== "details") modePrecedent = mode;
+    mode = nouveau;
+    corps.setAttribute("data-mode", nouveau);
+    document.querySelectorAll(".modes button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === nouveau)); });
+    if (nouveau !== "details") ecrireStockage("vigie-mode", nouveau);
+    try { history.replaceState(null, "", "#" + nouveau); } catch (e) { /* adresse non modifiable */ }
+  }
+  function fermerDetails() { definirMode(modePrecedent === "details" ? "infos" : modePrecedent); }
+  document.querySelectorAll(".modes button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var cible = b.getAttribute("data-mode");
+      if (cible === "details" && mode === "details") fermerDetails(); else definirMode(cible);
+    });
+  });
+  document.getElementById("fermer-details").addEventListener("click", fermerDetails);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && mode === "details") fermerDetails(); });
+  window.addEventListener("hashchange", function () {
+    var h = location.hash.slice(1);
+    if (MODES.indexOf(h) >= 0 && h !== mode) definirMode(h);
+  });
+  (function modeInitial() {
+    var h = location.hash.slice(1);
+    definirMode(MODES.indexOf(h) >= 0 ? h : (lireStockage("vigie-mode") || "infos"));
+  })();
 
   // ---------- Carte ----------
   var carte = L.map("carte", {
     preferCanvas: true, worldCopyJump: true, minZoom: 1, maxZoom: 10, zoomSnap: 0.25,
-    zoomControl: false, attributionControl: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8
+    zoomControl: false, attributionControl: false, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8
   });
-  carte.attributionControl.setPrefix(false);
-  carte.attributionControl.addAttribution("Natural Earth · aisstream.io · IMF PortWatch");
   L.control.zoom({ position: "bottomright" }).addTo(carte);
-  carte.fitBounds([[-42, -100], [62, 140]], { animate: false });
+
+  function visible(element) {
+    if (!element) return false;
+    var s = getComputedStyle(element);
+    return s.display !== "none" && s.visibility !== "hidden";
+  }
+  // Partie de l'écran que les panneaux laissent libre : sert à centrer ce qu'on montre dans la carte visible
+  function marges() {
+    var haut = document.querySelector(".barre .marque-bloc").getBoundingClientRect().bottom + 16;
+    var gauche = 0, droite = 0, bas = 0;
+    var infos = document.getElementById("infos"), details = document.getElementById("details");
+    if (mode !== "carte" && visible(infos)) {
+      var r = infos.getBoundingClientRect();
+      if (compact.matches) bas = window.innerHeight - r.top + 8; else gauche = r.right + 8;
+    }
+    if (mode === "details" && !compact.matches && visible(details)) droite = window.innerWidth - details.getBoundingClientRect().left + 8;
+    return { tl: [gauche, haut], br: [droite, bas] };
+  }
+  function voir(lat, lon, zoom) {
+    var m = marges();
+    zoom = zoom || Math.max(carte.getZoom(), 5);
+    var point = carte.project([lat, lon], zoom).subtract([(m.tl[0] - m.br[0]) / 2, (m.tl[1] - m.br[1]) / 2]);
+    carte.flyTo(carte.unproject(point, zoom), zoom, { animate: !mouvementReduit, duration: 1.1 });
+  }
+  function voirZone(bbox) {
+    var m = marges();
+    carte.flyToBounds([[bbox[0], bbox[1]], [bbox[2], bbox[3]]], { paddingTopLeft: m.tl, paddingBottomRight: m.br, animate: !mouvementReduit, duration: 1.1 });
+  }
+  function majZoomMin() {
+    var h = carte.getSize().y;
+    carte.setMinZoom(Math.max(1, Math.ceil(Math.log(h / 256) / Math.LN2 * 4) / 4));
+  }
+  majZoomMin();
+  carte.on("resize", majZoomMin);
+  // Vue de départ : le monde sur grand écran ; sur téléphone, de l'Atlantique à l'Asie, autour des routes du Golfe
+  var vueMonde = L.latLngBounds([[-42, -100], [62, 140]]);
+  var vueTelephone = L.latLngBounds([[-36, -18], [58, 124]]);
+  var carteTouchee = false;
+  ["mousedown", "touchstart", "wheel"].forEach(function (t) {
+    carte.getContainer().addEventListener(t, function () { carteTouchee = true; }, { passive: true });
+  });
+  function cadrerMonde() {
+    var m = marges();
+    carte.fitBounds(compact.matches ? vueTelephone : vueMonde, { paddingTopLeft: m.tl, paddingBottomRight: m.br, animate: false });
+  }
+  cadrerMonde();
 
   var fond = L.canvas({ padding: 0.5 });
   (function graticule() {
@@ -300,7 +500,6 @@ summary:hover { color: var(--clair); }
     for (var lat = -60; lat <= 60; lat += 30) lignes.push([[lat, -180], [lat, 180]]);
     L.polyline(lignes, { color: C.graticule, weight: 1, interactive: false, renderer: fond }).addTo(carte);
   })();
-
   charger("geo/land.json").then(function (terre) {
     L.geoJSON(terre, { renderer: fond, interactive: false, style: { color: C.cote, weight: 0.7, fillColor: C.terre, fillOpacity: 1 } }).addTo(carte);
     return charger("geo/borders.json");
@@ -308,13 +507,13 @@ summary:hover { color: var(--clair); }
     L.geoJSON(frontieres, { renderer: fond, interactive: false, style: { color: C.frontiere, weight: 0.6 } }).addTo(carte);
   }).catch(function (e) { console.warn("Fond de carte indisponible", e); });
 
-  // Couche des navires : un seul canevas redessiné à chaque déplacement, rapide même avec des milliers de navires
   carte.createPane("navires").style.zIndex = 450;
   carte.getPane("navires").style.pointerEvents = "none";
   carte.createPane("detroits").style.zIndex = 470;
+  carte.createPane("appels").style.zIndex = 620;
 
+  // Couche des navires : un seul canevas redessiné à chaque déplacement, rapide même avec des milliers de navires
   function longueurNavire(z) { return Math.max(6, Math.min(20, 4 + z * 1.7)); }
-
   var CoucheNavires = L.Layer.extend({
     initialize: function () { this._navires = []; this._ecran = []; this._choisi = null; },
     onAdd: function (map) {
@@ -382,7 +581,6 @@ summary:hover { color: var(--clair); }
 
   var TYPES = { 80: "Navire-citerne", 81: "Citerne, cargaison dangereuse A", 82: "Citerne, cargaison dangereuse B",
     83: "Citerne, cargaison dangereuse C", 84: "Citerne, cargaison dangereuse D", 89: "Navire-citerne, autre" };
-
   function fiche(n) {
     var lignes = [
       ["Vitesse", n.vitesse == null ? "n.d." : nombre(n.vitesse, 1) + " nœuds"],
@@ -398,13 +596,16 @@ summary:hover { color: var(--clair); }
       echapper(TYPES[n.type] || "Navire-citerne") + "</p><dl>" +
       lignes.map(function (l) { return "<dt>" + l[0] + "</dt><dd>" + echapper(l[1]) + "</dd>"; }).join("") + "</dl></div>";
   }
-
+  function popup(options) {
+    var m = marges();
+    return L.popup(L.extend({ maxWidth: 270, autoPanPaddingTopLeft: L.point(m.tl[0] + 8, m.tl[1] + 8), autoPanPaddingBottomRight: L.point(m.br[0] + 8, m.br[1] + 8) }, options || {}));
+  }
   carte.on("click", function (e) {
     var n = navires.trouver(e.containerPoint, 16);
     if (!n) { navires.choisir(null); return; }
     navires.choisir(n);
     var lng = n.lon - Math.round((n.lon - carte.getCenter().lng) / 360) * 360;
-    L.popup({ offset: [0, -6], maxWidth: 260 }).setLatLng([n.lat, lng]).setContent(fiche(n)).openOn(carte);
+    popup({ offset: [0, -6] }).setLatLng([n.lat, lng]).setContent(fiche(n)).openOn(carte);
   });
   carte.on("popupclose", function () { navires.choisir(null); });
 
@@ -418,10 +619,18 @@ summary:hover { color: var(--clair); }
     return L.marker([p[1], p[2]], { interactive: false, keyboard: false,
       icon: L.divIcon({ className: "port", html: echapper(p[0]), iconSize: null, iconAnchor: [2, 6] }) });
   }));
-  function majPorts() {
-    if (carte.getZoom() >= 5) couchePorts.addTo(carte); else couchePorts.remove();
-  }
+  function majPorts() { if (carte.getZoom() >= 5) couchePorts.addTo(carte); else couchePorts.remove(); }
   carte.on("zoomend", majPorts);
+
+  // Depuis la feuille « Détails » sur téléphone, on la referme avant de montrer un lieu
+  function allerVers(action) {
+    if (mode === "details" && compact.matches) {
+      fermerDetails();
+      setTimeout(action, 60);
+    } else {
+      action();
+    }
+  }
 
   // ---------- Petits graphiques ----------
   function sparkline(valeurs, options) {
@@ -459,8 +668,8 @@ summary:hover { color: var(--clair); }
     return "pastille";
   }
 
-  // ---------- Détroits ----------
-  var marqueursDetroits = {};
+  // ---------- Détroits (repères de fond et liste des détails) ----------
+  var marqueursDetroits = {}, detroitsRetenus = {};
   function afficherDetroits(donnees) {
     var principaux = document.getElementById("liste-detroits"), autres = document.getElementById("liste-autres");
     principaux.innerHTML = ""; autres.innerHTML = "";
@@ -468,9 +677,7 @@ summary:hover { color: var(--clair); }
     if (!liste.length) { principaux.appendChild(el("li", { class: "vide" }, "Données PortWatch pas encore disponibles.")); return; }
     document.getElementById("detroits-meta").textContent =
       "Navires-citernes par jour, moyenne sur 7 jours, écart aux 4 semaines précédentes · PortWatch au " + dateCourte(donnees.derniere_date);
-    liste.sort(function (a, b) {
-      return Math.abs(b.stats.ecart_vs_4sem_pct || 0) - Math.abs(a.stats.ecart_vs_4sem_pct || 0);
-    });
+    liste.sort(function (a, b) { return Math.abs(b.stats.ecart_vs_4sem_pct || 0) - Math.abs(a.stats.ecart_vs_4sem_pct || 0); });
     var rendu = L.svg({ pane: "detroits" });
     liste.forEach(function (d) {
       var s = d.stats, serie = (d.serie.petroliers || []).slice(-120);
@@ -481,40 +688,35 @@ summary:hover { color: var(--clair); }
         '<span class="ligne-valeur">' + nombre(s.petroliers_7j, 1) + "<small>/j</small></span>" +
         '<span class="' + classePastille(s.niveau) + '">' + signe(s.ecart_vs_4sem_pct, 0, " %") + "</span>" +
         sparkline(moyenneMobile(serie, 7), { finale: 7, reference: s.petroliers_4sem_avant, zero: true });
-      btn.addEventListener("click", function () {
-        carte.flyTo([d.lat, d.lon], 6, { animate: !mouvementReduit, duration: 1.2 });
-        if (window.innerWidth < 1000) document.querySelector(".carte-zone").scrollIntoView({ behavior: mouvementReduit ? "auto" : "smooth" });
-      });
+      btn.addEventListener("click", function () { allerVers(function () { voir(d.lat, d.lon, 6); }); });
       li.appendChild(btn);
       (d.petrole ? principaux : autres).appendChild(li);
 
-      var notable = s.niveau && s.niveau !== "normal" && s.niveau !== "inconnu";
-      var fort = s.niveau === "forte baisse" || s.niveau === "forte hausse";
       var marqueur = L.circleMarker([d.lat, d.lon], {
-        renderer: rendu, pane: "detroits", radius: d.petrole ? 5 : 3.5, color: C.blanc, weight: 1.5,
+        renderer: rendu, pane: "detroits", radius: d.petrole ? 4.5 : 3.2, color: C.blanc, weight: 1.4,
         fillColor: C.mer, fillOpacity: 1, bubblingMouseEvents: false
       }).addTo(carte);
-      marqueur.bindTooltip(echapper(d.nom) + (notable ? '<em class="' + (fort ? "fort" : "ecart") + '">' + signe(s.ecart_vs_4sem_pct, 0, " %") + "</em>" : ""), {
-        permanent: true, direction: "right", offset: [7, 0], className: "etiquette", opacity: 1
+      marqueur.bindTooltip(echapper(d.nom), { permanent: true, direction: "right", offset: [6, 0], className: "etiquette", opacity: 1 });
+      marqueur.on("click", function () {
+        popup().setLatLng([d.lat, d.lon]).setContent('<div class="fiche"><p class="fiche-nom">' + echapper(d.nom) + '</p><p class="fiche-type">IMF PortWatch, au ' +
+          dateCourte(s.derniere_date) + "</p><dl>" +
+          "<dt>Navires-citernes / jour (7 j)</dt><dd>" + nombre(s.petroliers_7j, 1) + "</dd>" +
+          "<dt>4 semaines avant</dt><dd>" + nombre(s.petroliers_4sem_avant, 1) + "</dd>" +
+          "<dt>Même période, an dernier</dt><dd>" + nombre(s.petroliers_meme_periode_an_dernier, 1) + "</dd>" +
+          "<dt>Tonnage estimé / jour</dt><dd>" + nombre(s.capacite_7j_tonnes == null ? null : s.capacite_7j_tonnes / 1000, 0) + " kt</dd>" +
+          "<dt>Tous navires / jour</dt><dd>" + nombre(s.navires_tous_types_7j, 0) + "</dd></dl></div>").openOn(carte);
       });
-      marqueur.bindPopup('<div class="fiche"><p class="fiche-nom">' + echapper(d.nom) + '</p><p class="fiche-type">IMF PortWatch, au ' +
-        dateCourte(s.derniere_date) + "</p><dl>" +
-        "<dt>Navires-citernes / jour (7 j)</dt><dd>" + nombre(s.petroliers_7j, 1) + "</dd>" +
-        "<dt>4 semaines avant</dt><dd>" + nombre(s.petroliers_4sem_avant, 1) + "</dd>" +
-        "<dt>Même période, an dernier</dt><dd>" + nombre(s.petroliers_meme_periode_an_dernier, 1) + "</dd>" +
-        "<dt>Tonnage estimé / jour</dt><dd>" + nombre(s.capacite_7j_tonnes == null ? null : s.capacite_7j_tonnes / 1000, 0) + " kt</dd>" +
-        "<dt>Tous navires / jour</dt><dd>" + nombre(s.navires_tous_types_7j, 0) + "</dd></dl></div>", { maxWidth: 280 });
-      marqueursDetroits[d.id] = { marqueur: marqueur, principal: d.petrole || notable };
+      marqueursDetroits[d.id] = { marqueur: marqueur, petrole: d.petrole };
     });
     majEtiquettes();
   }
   function majEtiquettes() {
     var z = carte.getZoom();
     Object.keys(marqueursDetroits).forEach(function (id) {
-      var m = marqueursDetroits[id], t = m.marqueur.getTooltip();
-      if (!t) return;
-      var visible = z >= 4 || (m.principal && z >= 2.5);
-      if (visible) m.marqueur.openTooltip(); else m.marqueur.closeTooltip();
+      var m = marqueursDetroits[id];
+      var retenu = detroitsRetenus[id] && mode !== "carte";
+      var montrer = !retenu && (z >= 4 || (m.petrole && z >= 3));
+      if (montrer) m.marqueur.openTooltip(); else m.marqueur.closeTooltip();
     });
   }
   carte.on("zoomend", majEtiquettes);
@@ -541,13 +743,9 @@ summary:hover { color: var(--clair); }
       } else {
         btn.innerHTML = '<span class="ligne-nom">' + echapper(noms[l.id] || l.id) + "<small>" + part + " % à l'arrêt</small></span>" +
           '<span class="ligne-valeur">' + nombre(l.total, 0) + "</span><span></span>" +
-          '<span class="barre"><i style="width:' + ((100 * l.total) / maxi).toFixed(1) + '%"></i><b style="width:' + ((100 * l.arret) / maxi).toFixed(1) + '%"></b></span>';
+          '<span class="barre-zone"><i style="width:' + ((100 * l.total) / maxi).toFixed(1) + '%"></i><b style="width:' + ((100 * l.arret) / maxi).toFixed(1) + '%"></b></span>';
       }
-      btn.addEventListener("click", function () {
-        var b = bboxes[l.id];
-        if (b) carte.flyToBounds([[b[0], b[1]], [b[2], b[3]]], { animate: !mouvementReduit, duration: 1.2 });
-        if (window.innerWidth < 1000) document.querySelector(".carte-zone").scrollIntoView({ behavior: mouvementReduit ? "auto" : "smooth" });
-      });
+      btn.addEventListener("click", function () { var b = bboxes[l.id]; if (b) allerVers(function () { voirZone(b); }); });
       li.appendChild(btn);
       ol.appendChild(li);
     });
@@ -558,26 +756,25 @@ summary:hover { color: var(--clair); }
     var ol = document.getElementById("liste-marches"); ol.innerHTML = "";
     var series = donnees.series || [];
     if (!series.length) { ol.appendChild(el("li", { class: "vide" }, "Cours indisponibles pour le moment.")); return; }
-    var date = series[0].derniere_date;
-    document.getElementById("marches-meta").textContent = "Dernier cours et variation sur un mois · au " + dateCourte(date);
+    document.getElementById("marches-meta").textContent = "Dernier cours et variation sur un mois · au " + dateCourte(series[0].derniere_date);
     series.forEach(function (s) {
       var pts = (s.points || []).slice(-66).map(function (p) { return p[1]; });
       var dec = s.dernier >= 1000 ? 0 : s.dernier < 10 ? 3 : 2;
       if (s.id === "taux10") dec = 2;
-      var variation = s.variation_en === "%" ? signe(s.var_1m, 1, " %") : signe(s.var_1m, 0, " pb");
-      var forte = s.variation_en === "%" ? Math.abs(s.var_1m || 0) >= 10 : Math.abs(s.var_1m || 0) >= 40;
-      var notable = s.variation_en === "%" ? Math.abs(s.var_1m || 0) >= 4 : Math.abs(s.var_1m || 0) >= 15;
+      var enPct = s.variation_en === "%";
+      var variation = enPct ? signe(s.var_1m, 1, " %") : signe(s.var_1m, 0, " pb");
+      var forte = enPct ? Math.abs(s.var_1m || 0) >= 10 : Math.abs(s.var_1m || 0) >= 40;
+      var notable = enPct ? Math.abs(s.var_1m || 0) >= 4 : Math.abs(s.var_1m || 0) >= 15;
       var li = el("li", { class: "ligne" });
       var div = el("div", { class: "ligne-btn ligne-statique" });
-      div.innerHTML = '<span class="ligne-nom">' + echapper(s.nom) + "<small>" + echapper(s.unite) + " · " + signe(s.var_5j, s.variation_en === "%" ? 1 : 0, s.variation_en === "%" ? " %" : " pb") + " sur 5 séances</small></span>" +
+      div.innerHTML = '<span class="ligne-nom">' + echapper(s.nom) + "<small>" + echapper(s.unite) + " · " + signe(s.var_5j, enPct ? 1 : 0, enPct ? " %" : " pb") + " sur 5 séances</small></span>" +
         '<span class="ligne-valeur">' + nombre(s.dernier, dec) + "</span>" +
         '<span class="' + (forte ? "pastille pastille--fort" : notable ? "pastille pastille--ecart" : "pastille") + '">' + variation + "</span>" +
         sparkline(pts, { finale: 21 });
       li.appendChild(div);
       ol.appendChild(li);
     });
-    var st = donnees.stocks_us;
-    var p = document.getElementById("stocks-us");
+    var st = donnees.stocks_us, p = document.getElementById("stocks-us");
     if (st && st.niveau) {
       p.hidden = false;
       p.textContent = "Stocks commerciaux de brut aux États-Unis : " + nombre(st.niveau / 1000, 1) + " millions de barils (semaine du " +
@@ -585,7 +782,7 @@ summary:hover { color: var(--clair); }
     }
   }
 
-  // ---------- L'essentiel : cartes d'indicateurs ----------
+  // ---------- L'essentiel : indicateurs retenus, en cartes et en repères sur la carte ----------
   function formaterValeur(k) {
     var v = k.valeur;
     if (k.categorie === "Zone AIS") return nombre(v, 0);
@@ -600,55 +797,98 @@ summary:hover { color: var(--clair); }
     if (x.unite === "M") return signe(x.valeur, 1, " M");
     return signe(x.valeur, Math.abs(x.valeur) >= 100 ? 0 : 1, " %");
   }
-  function carteIndicateur(k, choix) {
+  function uniteCourte(k) {
+    if (k.categorie === "Détroit") return "pétroliers / jour";
+    if (k.categorie === "Zone AIS") return String(k.unite || "").replace("navires-citernes", "pétroliers");
+    if (k.categorie === "Stocks") return "M de barils";
+    return k.unite || "";
+  }
+  function titreCourt(t) { return String(t || "").replace(/^(Détroit d'|Détroit de |Détroit du |Canal de |Canal du |Passage de la |Passage du )/, ""); }
+
+  var indicateursParId = {}, appels = {}, choisi = null;
+  var coucheAppels = L.layerGroup().addTo(carte);
+
+  function carteIndicateur(k, choix, rang) {
     var principale = k.variations[k.principale] || {};
     var autres = k.variations.filter(function (_, i) { return i !== k.principale; })
-      .map(function (x) { var t = formaterVariation(x); return t ? t + " sur " + x.libelle : null; })
+      .map(function (x) { var t = formaterVariation(x); return t ? t + " " + x.libelle : null; })
       .filter(Boolean);
-    var fort = k.score >= 1.5, notable = k.score >= 0.8;
-    var attributs = k.carte ? ' data-lat="' + k.carte[0] + '" data-lon="' + k.carte[1] + '" tabindex="0" role="button"' : "";
+    var fort = k.score >= 1.5, notable = k.score >= 0.8, situe = !!k.carte;
     var date = k.categorie === "Détroit" ? " · au " + dateCourte(k.date) : "";
-    var html = '<article class="kpi' + (fort ? " kpi--fort" : "") + '"' + attributs + ">";
-    html += '<span class="kpi-cat">' + echapper(k.categorie + date) + "</span>";
-    html += '<span class="kpi-titre">' + echapper(k.titre) + "</span>";
-    html += '<span class="kpi-valeur">' + formaterValeur(k) + "</span>";
-    html += '<span class="kpi-unite">' + echapper(k.unite) + "</span>";
+    var html = '<article class="kpi' + (situe ? " kpi--situe" : "") + '" data-id="' + echapper(k.id) + '"' +
+      (situe ? ' tabindex="0" role="button" aria-label="' + echapper(k.titre) + ', voir sur la carte"' : "") + ">";
+    html += '<span class="kpi-num" aria-hidden="true">' + rang + "</span>";
+    html += '<div class="kpi-tete"><span class="kpi-titre">' + echapper(k.titre) + '</span><span class="kpi-cat">' + echapper(k.categorie + date) + "</span></div>";
+    html += '<div class="kpi-chiffre"><span class="kpi-valeur">' + formaterValeur(k) + '</span><span class="kpi-unite">' + echapper(uniteCourte(k)) + "</span></div>";
     var varPrincipale = formaterVariation(principale);
-    if (varPrincipale) {
-      html += '<span class="kpi-var"><span class="' + (fort ? "pastille pastille--fort" : notable ? "pastille pastille--ecart" : "pastille") + '">' +
-        varPrincipale + " · " + echapper(principale.libelle) + "</span>" +
-        (autres.length ? '<span class="kpi-var2">' + echapper(autres.join(" · ")) + "</span>" : "") + "</span>";
-    }
-    if (k.etat) html += '<span class="kpi-etat">' + echapper(k.etat.charAt(0).toUpperCase() + k.etat.slice(1)) + "</span>";
-    if (choix && choix.pourquoi) html += '<span class="kpi-pourquoi">' + echapper(choix.pourquoi) + "</span>";
-    if (k.note) html += '<span class="kpi-note">' + echapper(k.note) + "</span>";
-    if (choix && choix.reference) html += '<span class="kpi-ref">' + echapper(choix.reference) + "</span>";
+    html += '<div class="kpi-var">' + (k.etat ? '<span class="kpi-etat">' + echapper(capitaliser(k.etat)) + "</span>" : "") +
+      (varPrincipale ? '<span class="' + (fort ? "pastille pastille--fort" : notable ? "pastille pastille--ecart" : "pastille") + '">' + varPrincipale + " · " + echapper(principale.libelle) + "</span>" : "") +
+      (autres.length ? '<span class="kpi-var2">' + echapper(autres.join(" · ")) + "</span>" : "") + "</div>";
+    if (choix && choix.pourquoi) html += '<p class="kpi-pourquoi">' + echapper(choix.pourquoi) + "</p>";
+    if (k.note) html += '<p class="kpi-note">' + echapper(k.note) + "</p>";
+    if (choix && choix.reference) html += '<p class="kpi-ref">' + echapper(choix.reference) + "</p>";
     return html + "</article>";
   }
+  function htmlAppel(k, rang) {
+    var principale = k.variations[k.principale] || {};
+    var v = formaterVariation(principale);
+    var texte = k.etat ? capitaliser(k.etat) : (v ? v + " · " + principale.libelle : "");
+    return '<span class="appel-num">' + rang + '</span><span class="appel-txt">' + echapper(titreCourt(k.titre)) +
+      (texte ? "<i>" + echapper(texte) + "</i>" : "") + "</span>";
+  }
+  function selectionner(id, options) {
+    options = options || {};
+    choisi = id;
+    var cible = null;
+    document.querySelectorAll(".kpi").forEach(function (e) {
+      var actif = e.getAttribute("data-id") === id;
+      e.classList.toggle("kpi--actif", actif);
+      if (actif) cible = e;
+    });
+    Object.keys(appels).forEach(function (cle) {
+      var e = appels[cle].getElement();
+      if (e) e.classList.toggle("appel--actif", cle === id);
+    });
+    if (cible && options.defiler) cible.scrollIntoView({ behavior: mouvementReduit ? "auto" : "smooth", block: "nearest", inline: "center" });
+    var k = indicateursParId[id];
+    if (k && k.carte && options.voler) voir(k.carte[0], k.carte[1], id.indexOf("zone:") === 0 ? 4 : 5);
+  }
+
   function afficherEssentiel(pool, analyse) {
     var indicateurs = (pool && pool.indicateurs) || [];
-    var parId = {};
-    indicateurs.forEach(function (k) { parId[k.id] = k; });
-    var selection = analyse && analyse.selection ? analyse.selection.filter(function (c) { return parId[c.id]; }) : [];
+    indicateursParId = {};
+    indicateurs.forEach(function (k) { indicateursParId[k.id] = k; });
+    var selection = analyse && analyse.selection ? analyse.selection.filter(function (c) { return indicateursParId[c.id]; }) : [];
     if (!selection.length) selection = indicateurs.slice(0, 6).map(function (k) { return { id: k.id }; });
     var conteneur = document.getElementById("kpis");
     if (!selection.length) { conteneur.innerHTML = '<p class="vide">Indicateurs pas encore calculés.</p>'; return; }
-    conteneur.innerHTML = selection.map(function (choix) { return carteIndicateur(parId[choix.id], choix); }).join("");
-    conteneur.querySelectorAll(".kpi[data-lat]").forEach(function (carteKpi) {
-      function voir() {
-        carte.flyTo([+carteKpi.dataset.lat, +carteKpi.dataset.lon], 5, { animate: !mouvementReduit, duration: 1.2 });
-        if (window.innerWidth < 1000) document.querySelector(".carte-zone").scrollIntoView({ behavior: mouvementReduit ? "auto" : "smooth" });
-      }
-      carteKpi.addEventListener("click", voir);
-      carteKpi.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); voir(); } });
+    conteneur.innerHTML = selection.map(function (choix, i) { return carteIndicateur(indicateursParId[choix.id], choix, i + 1); }).join("");
+    conteneur.querySelectorAll(".kpi--situe").forEach(function (carteKpi) {
+      var id = carteKpi.getAttribute("data-id");
+      carteKpi.addEventListener("click", function () { selectionner(id, { voler: true }); });
+      carteKpi.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectionner(id, { voler: true }); } });
     });
+
+    // Repères numérotés sur la carte pour les indicateurs qui ont un lieu
+    coucheAppels.clearLayers(); appels = {}; detroitsRetenus = {};
+    selection.forEach(function (choix, i) {
+      var k = indicateursParId[choix.id];
+      if (!k.carte) return;
+      var repere = L.marker(k.carte, { pane: "appels", keyboard: false, riseOnHover: true,
+        icon: L.divIcon({ className: "appel", html: htmlAppel(k, i + 1), iconSize: null, iconAnchor: [11, 11] }) });
+      repere.on("click", function () { selectionner(k.id, { defiler: true, voler: true }); });
+      repere.addTo(coucheAppels);
+      appels[k.id] = repere;
+      if (k.id.indexOf("detroit:") === 0) detroitsRetenus[k.id.slice(8)] = true;
+    });
+    majEtiquettes();
 
     var meta = document.getElementById("essentiel-meta");
     var mise = pool && pool.genere_le ? "valeurs de " + heureUTC(pool.genere_le) : "";
     if (analyse && analyse.genere_le) {
-      var auteur = analyse.mode === "ia" ? "Choix et commentaires : " + analyse.modele : "Sélection automatique (règles fixes)";
+      var auteur = analyse.mode === "ia" ? "Sélection de l'agent" : "Sélection automatique";
       meta.textContent = auteur + ", " + ilYa(analyse.genere_le) + (mise ? " · " + mise : "");
-      document.getElementById("titre-jour").textContent = analyse.titre || "";
+      if (analyse.titre) document.getElementById("titre-jour").textContent = analyse.titre;
     } else {
       meta.textContent = "Indicateurs les plus marqués" + (mise ? " · " + mise : "");
     }
@@ -657,22 +897,25 @@ summary:hover { color: var(--clair); }
       document.getElementById("surveiller").hidden = false;
       document.getElementById("liste-surveiller").innerHTML = aSurveiller.map(function (t) { return "<li>" + echapper(t) + "</li>"; }).join("");
     }
+    var ctrl = document.getElementById("essentiel-controle");
     var c = (analyse && analyse.controle) || null;
     if (c) {
-      var ctrl = document.getElementById("essentiel-controle");
-      var texte = "Contrôle automatique : " + (c.indicateurs_valides || selection.length) + " indicateurs vérifiés, chiffres calculés par le programme";
+      var modele = analyse.mode === "ia" ? "Choix et commentaires : " + analyse.modele + ". " : "Sélection par règles fixes, sans modèle de langage. ";
+      var texte = modele + (c.indicateurs_valides || selection.length) + " indicateurs vérifiés ; tous les chiffres sont calculés par le programme";
       var alertes = [];
       if ((c.ids_inconnus || []).length) alertes.push(c.ids_inconnus.length + " indicateur(s) inventé(s) écarté(s)");
       if ((c.citations_inconnues || []).length) alertes.push("citation(s) hors bibliothèque retirée(s) : " + c.citations_inconnues.join(" ; "));
       if (alertes.length) { texte += ". " + alertes.join(" · "); ctrl.classList.add("alerte"); }
-      ctrl.textContent = texte;
-      ctrl.hidden = false;
+      ctrl.textContent = texte + ".";
+    } else {
+      ctrl.textContent = "Pas encore de sélection de l'agent : les indicateurs les plus marqués sont affichés.";
     }
     var refs = (analyse && analyse.references) || [];
     if (refs.length) {
       document.getElementById("references").hidden = false;
       document.getElementById("liste-references").innerHTML = refs.map(function (r) { return "<li>" + echapper(r) + "</li>"; }).join("");
     }
+    if (!carteTouchee) cadrerMonde();
   }
 
   // ---------- Chargement ----------
@@ -680,14 +923,15 @@ summary:hover { color: var(--clair); }
     var liste = d.petroliers || [];
     navires.definir(liste);
     var recents = liste.filter(function (n) { return Date.now() - new Date(n.vu).getTime() < 3 * 3600000; }).length;
-    document.getElementById("compteur").textContent = nombre(liste.length, 0) + " pétroliers de mer repérés, dont " + nombre(recents, 0) +
-      " ces 3 dernières heures · réseau AIS gratuit, surtout Europe et Amériques · " + heureUTC(d.genere_le);
+    var texte = nombre(liste.length, 0) + " pétroliers de mer · " + nombre(recents, 0) + " vus en 3 h · " + heureUTC(d.genere_le);
+    var compteur = document.getElementById("compteur");
+    compteur.textContent = texte;
+    compteur.title = texte + ". Réseau AIS gratuit, surtout en Europe et dans les Amériques.";
   }
   function afficherEtat(e) {
     if (e.demo) document.getElementById("bandeau-demo").hidden = false;
     var echecs = Object.keys(e.etapes || {}).filter(function (k) { return !e.etapes[k].ok; });
-    var p = document.getElementById("etat-collecte");
-    p.innerHTML = "Dernier passage de la collecte : " + dateCourte(e.fin) + ", " + heureUTC(e.fin) + ". " +
+    document.getElementById("etat-collecte").innerHTML = "Dernier passage de la collecte : " + dateCourte(e.fin) + ", " + heureUTC(e.fin) + ". " +
       (echecs.length ? "Étapes en échec : " + echecs.map(function (k) { return echapper(k + " (" + (e.etapes[k].erreur || "") + ")"); }).join(", ") + "."
         : '<span class="etat-ok">Toutes les étapes ont réussi.</span>');
   }
@@ -708,6 +952,25 @@ summary:hover { color: var(--clair); }
     charger("data/analysis.json").catch(function () { return null; })
   ]).then(function (r) { afficherEssentiel(r[0], r[1]); });
   majPorts();
+  corps.addEventListener("transitionend", function (e) { if (e.target.id === "infos" || e.target.id === "details") majEtiquettes(); });
+  new MutationObserver(majEtiquettes).observe(corps, { attributes: true, attributeFilter: ["data-mode"] });
+
+  // ---------- Application installable ----------
+  var invite = null, boutonInstaller = document.getElementById("installer");
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); invite = e; boutonInstaller.hidden = false; });
+  boutonInstaller.addEventListener("click", function () {
+    if (!invite) return;
+    invite.prompt();
+    invite.userChoice.then(function () { invite = null; boutonInstaller.hidden = true; });
+  });
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var installee = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+  if (ios && !installee) document.getElementById("aide-ios").hidden = false;
+  try {
+    if ("serviceWorker" in navigator && location.protocol === "https:") {
+      window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+    }
+  } catch (e) { /* service worker indisponible (aperçu, navigation privée) */ }
 })();
 </script>
 </body>

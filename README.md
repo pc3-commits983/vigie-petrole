@@ -2,9 +2,10 @@
 
 Une application gratuite qui suit les pétroliers sur une carte du monde et qui, chaque jour, rédige une analyse des points du transport pétrolier susceptibles d'affecter les marchés financiers.
 
-- **Carte** : les navires-citernes repérés par l'AIS, en rouge sur un fond en niveaux de gris, orientés selon leur cap. Un navire plein est en route, un navire en contour est à l'arrêt, un navire pâle n'a pas été revu depuis plus de 3 heures. Un clic affiche sa fiche (vitesse, destination, tirant d'eau…).
+- **Carte plein écran** : c'est le cœur de l'application. Les pétroliers repérés par l'AIS y sont en rouge sur un fond en niveaux de gris, orientés selon leur cap. Un navire plein est en route, un navire en contour est à l'arrêt, un navire pâle n'a pas été revu depuis plus de 3 heures. Un clic affiche sa fiche (vitesse, destination, tirant d'eau…).
 - **Détroits** : les passages quotidiens de navires-citernes publiés par IMF PortWatch (Ormuz, Bab el-Mandeb, Suez, Malacca…), comparés aux 4 semaines précédentes et à l'an dernier.
 - **Marchés** : Brent, WTI, gaz européen, S&P 500, VIX, taux américain à 10 ans, dollar, euro, or, et stocks de brut américains.
+- **Trois modes** : *Carte* (la carte seule), *Infos* (les indicateurs retenus par l'agent posés par-dessus la carte : panneau à gauche sur ordinateur, bandeau en bas sur téléphone) et *Détails* (toutes les données et les sources). Les indicateurs qui ont un lieu (détroit, zone) apparaissent aussi sur la carte avec le même numéro que leur carte ; toucher l'un montre l'autre.
 - **L'essentiel** : des cartes d'indicateurs clés (par exemple « Brent +5 % sur 1 mois » ou « Détroit d'Ormuz, reprise, +400 % sur 1 semaine »). Le programme calcule tous les chiffres ; un agent (Gemini) choisit les 4 à 8 indicateurs qui comptent le plus pour les marchés et écrit une ligne pour chacun, en s'appuyant sur une bibliothèque de quatorze articles scientifiques.
 
 Tout tourne sur GitHub : une tâche planifiée collecte les données chaque heure et publie le site sur GitHub Pages. Il n'y a pas de serveur à louer.
@@ -47,6 +48,7 @@ Les secrets ne sont jamais visibles dans le site ni dans le code : seule la tâc
 2. Onglet **Actions** → **Vigie pétrole** → **Run workflow** → **Run workflow**.
 3. Attends un petit quart d'heure (15 minutes d'écoute du flux AIS, puis PortWatch, les marchés, les indicateurs et l'agent).
 4. Ton application est en ligne à l'adresse `https://<ton-pseudo>.github.io/vigie-petrole/`.
+5. Pour l'installer comme une application : sur iPhone, ouvre l'adresse dans Safari, bouton **Partager**, puis **Sur l'écran d'accueil**. Sur Android, Chrome propose **Installer l'application** (le bouton apparaît aussi dans *Détails*). Elle s'ouvre alors en plein écran avec son icône de baril, et reste consultable hors ligne avec les dernières données chargées.
 
 Ensuite, tout est automatique : positions, cours et indicateurs chaque heure, sélection de l'agent toutes les 6 heures. Pour refaire la sélection tout de suite, relance **Run workflow**.
 
@@ -144,7 +146,7 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-52 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), calcul des indicateurs (dont la détection d'une reprise de trafic), validation de la sélection de l'agent, masquage des clés et construction du site. Ils tournent aussi automatiquement sur GitHub à chaque modification.
+54 tests : traitement des messages AIS, faux serveur aisstream en local, pagination PortWatch, calculs de marché, outils de l'agent, boucle de l'agent contre un faux serveur Gemini (appels d'outils, repli, modèle introuvable), calcul des indicateurs (dont la détection d'une reprise de trafic), validation de la sélection de l'agent, masquage des clés, construction du site et fichiers de l'application installable. Ils tournent aussi automatiquement sur GitHub à chaque modification.
 
 ## Structure
 
@@ -163,7 +165,10 @@ pipeline/
   run.py            orchestrateur
 site/
   index.html        l'application (Leaflet, carte Natural Earth)
+  manifest.webmanifest, sw.js   application installable, fonctionnement hors ligne
+  icon*.png, icon.svg, apple-touch-icon.png   icône (fût de pétrole)
   geo/              côtes et frontières (Natural Earth, domaine public)
+outils/icone.py     dessin de l'icône (SVG)
 tests/
 .github/workflows/  tâche horaire et tests
 ```
