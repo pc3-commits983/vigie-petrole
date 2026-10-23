@@ -68,6 +68,7 @@ class Collecteur:
         self.horloge = horloge
         self.erreur: str | None = None
         self.compteurs = {"messages": 0, "positions": 0, "statiques": 0, "ignores": 0}
+        self.vus_statiques: set[str] = set()  # navires distincts dont on a reçu le message statique
 
     def traiter(self, brut) -> None:
         self.compteurs["messages"] += 1
@@ -100,6 +101,7 @@ class Collecteur:
             self.compteurs["ignores"] += 1
             return
         self.compteurs["statiques"] += 1
+        self.vus_statiques.add(mmsi)
         if type_navire not in config.TYPES_CITERNE:
             # Le navire n'est pas (ou plus) déclaré comme citerne
             self.registre.pop(mmsi, None)
@@ -146,6 +148,16 @@ class Collecteur:
         nom = _nettoyer_texte(meta.get("ShipName"))
         if nom:
             self.noms_vus[mmsi] = nom
+
+    def diagnostic(self, minutes: float) -> dict:
+        """Mesure de la couverture du flux pendant ce passage, pour juger la densité de la carte."""
+        citernes_vues = sum(1 for m in self.positions if m in self.registre)
+        return {
+            "navires_distincts_positions": len(self.positions),
+            "navires_distincts_statiques": len(self.vus_statiques),
+            "citernes_identifiees_parmi_positions": citernes_vues,
+            "messages_par_seconde": round(self.compteurs["messages"] / max(minutes * 60, 1), 1),
+        }
 
     def petroliers(self) -> list[dict]:
         """Positions des navires-citernes connus du registre."""
@@ -268,6 +280,7 @@ def mettre_a_jour(data_dir: Path, collecteur: Collecteur, minutes: float, instan
             "ecoute_minutes": minutes,
             "messages_recus": collecteur.compteurs["messages"],
             "nouvelles_positions": len(collecteur.petroliers()),
+            "diagnostic": collecteur.diagnostic(minutes),
             "petroliers": petroliers,
         },
     )
@@ -284,6 +297,7 @@ def mettre_a_jour(data_dir: Path, collecteur: Collecteur, minutes: float, instan
         "positions_de_ce_passage": len(collecteur.petroliers()),
         "registre": len(registre),
         **collecteur.compteurs,
+        **collecteur.diagnostic(minutes),
     }
 
 
